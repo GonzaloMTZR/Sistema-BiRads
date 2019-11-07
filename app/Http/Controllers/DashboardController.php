@@ -18,6 +18,7 @@ class DashboardController extends Controller
     public function index()
     {
         $currentDateTime = Carbon::today();
+        $countPacientes = DB::table('pacientes')->count();
         return view('starter', compact('countPacientes'));
     }
 
