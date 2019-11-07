@@ -35,7 +35,7 @@
                                     <th>Domicilio</th>
                                     <th>Municipio</th>
                                     <th>Entidad</th>
-                                    
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,6 +45,17 @@
                                         <td>{{$paciente->calle}}</td>
                                         <td>{{$paciente->municipio}}</td>
                                         <td>{{$paciente->entidadFederativa}}</td>
+                                    <td>
+                                        <a href="/pacientes/{{$paciente->id}}">
+                                            <button class="btn btn-sm btn-primary">Ver</button>
+                                        </a>
+                                        <a href="/pacientes/{{$paciente->id}}/edit">
+                                            <button class="btn btn-sm btn-warning" style="color:white;">Editar</button>
+                                        </a>
+                                        <a href="/pacientes/{{$paciente->id}}">
+                                            <button class="btn btn-sm btn-danger">Eliminar</button>
+                                        </a>
+                                    </td>
                                     
                                     </tr>
                                 @endforeach
@@ -56,7 +67,7 @@
                                     <th>Domicilio</th>
                                     <th>Municipio</th>
                                     <th>Hospital</th>
-                                    
+                                    <th>Acciones</th>
                                 </tr>
                             </tfoot>
                         </table>

@@ -11,14 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('starter');
-})->middleware('auth');
-
-Route::get('/logout', function(){
-    Auth::logout();
-    return view('auth.login');
-});
+/**
+ * Ruta de los controladores para el dashboard
+ */
+Route::resource('/', 'DashboardController');
 
 
 /**
@@ -29,3 +25,8 @@ Route::resource('/pacientes', 'PacienteController');
 Route::post('/pacientes/{paciente}/addEstudio', 'PacienteController@addEstudio')->name('pacientes.addEstudio');
 
 Auth::routes();
+
+Route::get('/logout', function(){
+    Auth::logout();
+    return view('auth.login');
+});

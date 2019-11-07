@@ -76,7 +76,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Jurisdicción</th>
-                                <td><a href="#!">{{$paciente->jurisdiccion}}</a></td>
+                                <td>{{$paciente->jurisdiccion}}</a></td>
                             </tr>
                             
                 
@@ -91,7 +91,7 @@
                             <tbody>
                             <tr>
                                 <th scope="row">Telefono</th>
-                                <td><a href="#!">{{$paciente->telefono}}</a></td>
+                                <td>{{$paciente->telefono}}</a></td>
                             </tr>
                             
                             <tr>
@@ -158,7 +158,7 @@
                 </div>
                           
             
-                <div class="card-block">
+                <div class="card-block mt-3">
                     <div class="table-responsive">
                         <div class="table-content">
                             <div class="project-table">
@@ -172,7 +172,6 @@
                                             <th>Fecha de la toma</th>
                                             <th>Unidad mádica</th>
                                             
-                                        
                                         </tr>
                                     </thead>
 
