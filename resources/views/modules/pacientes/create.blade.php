@@ -156,10 +156,7 @@
         
                             <div class="col-sm-3">
                                 <label for="my-input">Tiempo de residencia actual</label>
-                                <select name="tiempoResidencia" id="" class="form-control">
-                                    <option selected disabled>Seleccione una opción</option>
-                                    <option value="Opcion 1">Opción 1</option>
-                                </select>
+                               <input type="text" name="tiempoResidencia" class="form-control" id="">
                             </div>
                         </div>
         
