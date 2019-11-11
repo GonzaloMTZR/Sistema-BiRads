@@ -24,6 +24,14 @@ Route::resource('/', 'DashboardController');
 Route::resource('/pacientes', 'PacienteController');
 Route::post('/pacientes/{paciente}/addEstudio', 'PacienteController@addEstudio')->name('pacientes.addEstudio');
 
+/**
+ * Rutas de las jurisdicciones y de las unidades medicas
+ * Aquí estan las rutas de las funciones que se pueden realizar
+ */
+Route::resource('/jurisdicciones', 'JurisdiccionController');
+Route::resource('/unidades-medicas', 'UnidadMedicaController');
+
+
 Auth::routes();
 
 Route::get('/logout', function(){

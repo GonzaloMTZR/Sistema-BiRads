@@ -19,10 +19,10 @@
 
                             <div class="col-md-6">
                                 <select name="sistema" id="sistema" class="form-control {{ $errors->has('sistema') ? ' is-invalid' : '' }}" value="{{ old('sistema') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="Tipo de Sistema">Tipo de Sistema</option>
+                                    <option value="Tipo de Sistema">Tipo de Sistema</option>
+                                    <option value="Tipo de Sistema">Tipo de Sistema</option>
+                                    <option value="Tipo de Sistema">Tipo de Sistema</option>
                                 </select>
 
                                 @if ($errors->has('sistema'))
@@ -38,10 +38,10 @@
 
                             <div class="col-md-6">
                                 <select name="tipoPerfil" id="tipoPerfil" class="form-control {{ $errors->has('tipoPerfil') ? ' is-invalid' : '' }}" value="{{ old('tipoPerfil') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="Tipo Perfil">Tipo Perfil</option>
+                                    <option value="Tipo Perfil">Tipo Perfil</option>
+                                    <option value="Tipo Perfil">Tipo Perfil</option>
+                                    <option value="Tipo Perfil">Tipo Perfil</option>
                                 </select>
 
                                 @if ($errors->has('tipoPerfil'))
@@ -53,14 +53,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="institucion" class="col-md-4 col-form-label text-md-right">{{ __('Institucion') }}</label>
+                            <label for="institucion" class="col-md-4 col-form-label text-md-right">{{ __('Institución') }}</label>
 
                             <div class="col-md-6">
                                 <select name="institucion" id="institucion" class="form-control {{ $errors->has('institucion') ? ' is-invalid' : '' }}" value="{{ old('institucion') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="institucion">institucion</option>
+                                    <option value="institucion">institucion</option>
+                                    <option value="institucion">institucion</option>
+                                    <option value="institucion">institucion</option>
                                 </select>
 
                                 @if ($errors->has('institucion'))
@@ -71,15 +71,19 @@
                             </div>
                         </div>
 
+                        
+
+
                         <div class="form-group row">
-                            <label for="institucion" class="col-md-4 col-form-label text-md-right">{{ __('Entidad') }}</label>
+                            <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Entidad') }}</label>
 
                             <div class="col-md-6">
                                 <select name="entidad" id="entidad" class="form-control {{ $errors->has('entidad') ? ' is-invalid' : '' }}" value="{{ old('entidad') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="entidad">Seleccione una opción</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{$estado->nombre_estado}}">{{$estado->nombre_estado}}</option>
+                                    @endforeach
+                                    
                                 </select>
 
                                 @if ($errors->has('entidad'))
@@ -95,10 +99,8 @@
 
                             <div class="col-md-6">
                                 <select name="jurisdiccion" id="jurisdiccion" class="form-control {{ $errors->has('jurisdiccion') ? ' is-invalid' : '' }}" value="{{ old('jurisdiccion') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="jurisdiccion">Seleccione una jurisdicción</option>
+                                    <option value="jurisdiccion">Seleccione una jurisdicción</option>
                                 </select>
 
                                 @if ($errors->has('jurisdiccion'))
@@ -114,10 +116,10 @@
 
                             <div class="col-md-6">
                                 <select name="municipio" id="municipio" class="form-control {{ $errors->has('municipio') ? ' is-invalid' : '' }}" value="{{ old('municipio') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="Municipio">Municipio</option>
+                                    <option value="Municipio">Municipio</option>
+                                    <option value="Municipio">Municipio</option>
+                                    <option value="Municipio">Municipio</option>
                                 </select>
 
                                 @if ($errors->has('municipio'))
@@ -133,10 +135,10 @@
 
                             <div class="col-md-6">
                                 <select name="localidad" id="localidad" class="form-control {{ $errors->has('localidad') ? ' is-invalid' : '' }}" value="{{ old('localidad') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="Localidad">Localidad</option>
+                                    <option value="Localidad">Localidad</option>
+                                    <option value="Localidad">Localidad</option>
+                                    <option value="Localidad">Localidad</option>
                                 </select>
 
                                 @if ($errors->has('localidad'))
@@ -152,10 +154,10 @@
 
                             <div class="col-md-6">
                                 <select name="unidadMedica" id="unidadMedica" class="form-control {{ $errors->has('unidadMedica') ? ' is-invalid' : '' }}" value="{{ old('unidadMedica') }}" required autofocus>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
-                                    <option value="Opcion 1">Opcion 1</option>
+                                    <option value="Unidad Medica">Unidad Medica</option>
+                                    <option value="Unidad Medica">Unidad Medica</option>
+                                    <option value="Unidad Medica">Unidad Medica</option>
+                                    <option value="Unidad Medica">Unidad Medica</option>
                                 </select>
 
                                 @if ($errors->has('unidadMedica'))
@@ -235,3 +237,22 @@
     </div>
 </div>
 @endsection
+
+<!--@ section('registro-js')
+    <script>
+        $('#estados').on('change', function (e) {
+            console.log(e);
+            var estados = e.target.value;
+            $.get('/getJurisdiccion?estado_id=' + estados, function (data) {
+                console.log(data);
+
+                $('#jurisdiccion').empty();
+                $.each(data, function (index, subcatObj) {
+                    console.log(subcatObj.nombre_jurisdiccion);
+                    var option = $('<option></option>').text(subcatObj.nombre_jurisdiccion).val(index.id);
+                    $('#jurisdiccion').append(option);
+                });
+            });
+        });
+    </script>
+@ endsection-->

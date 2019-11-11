@@ -49,7 +49,11 @@
                                 <label name="entidad" for="my-input">Entidad de nacimiento</label>
                                 <select class="form-control" name="entidad" id="">
                                     <option selected disabled>Seleccione la entidad</option>
-                                    
+                                    <option value= "Abasolo">Abasolo</option>
+                                    <option value= "Aldama">Aldama</option>
+                                    <option value= "Altamira">Altamira</option>
+                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
+                                    <option value= "Burgos">Burgos</option>
                                     
                                 
                                 </select>
@@ -102,6 +106,11 @@
                                 <label name="entidadFederativa" for="my-input">Entidad Federeativa</label>
                                 <select class="form-control" name="entidadFederativa" id="">
                                     <option selected disabled>Seleccione la entidad</option>
+                                    <option value= "Abasolo">Abasolo</option>
+                                    <option value= "Aldama">Aldama</option>
+                                    <option value= "Altamira">Altamira</option>
+                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
+                                    <option value= "Burgos">Burgos</option>
                                     
                                 </select>
                             </div>
@@ -116,44 +125,7 @@
                                     <option value= "Altamira">Altamira</option>
                                     <option value= "Antiguo Morelos">Antiguo Morelos</option>
                                     <option value= "Burgos">Burgos</option>
-                                    <option value= "Bustamante"> Bustamante</option>
-                                    <option value= "Camargo"> Camargo</option>
-                                    <option value= "Casas">  Casas</option>
-                                    <option value= "Cruillas">Cruillas</option>
-                                    <option value= "Güémez">Güémez</option>
-                                    <option value= "Gómez Farías">Gómez Farías</option>
-                                    <option value= "González">González</option>
-                                    <option value= "Guerrero"> Guerrero</option>
-                                    <option value= "Gustavo Díaz Ordaz">  Gustavo Díaz Ordaz</option>
-                                    <option value= "Hidalgo"> Hidalgo</option>
-                                    <option value= "Jaumave"> Jaumave</option>
-                                    <option value= "Jiménez">Jiménez</option>
-                                    <option value= "Llera">Llera</option>
-                                    <option value= "Madero">Madero</option>
-                                    <option value= "Mainero">Mainero</option>
-                                    <option value= "Mante">Mante</option>
-                                    <option value= "Matamoros"> Matamoros</option>
-                                    <option value= "Méndez"> Méndez</option>
-                                    <option value= "Mier"> Mier</option>
-                                    <option value= "Miguel Alemán"> Miguel Alemán</option>
-                                    <option value= "Miquihuana"> Miquihuana</option>
-                                    <option value= "Nuevo Laredo"> Nuevo Laredo</option>
-                                    <option value= "Nuevo Morelos">Nuevo Morelos</option>
-                                    <option value= "Ocampo">Ocampo</option>
-                                    <option value= "Padilla">Padilla</option>
-                                    <option value= "Palmillas">Palmillas</option>
-                                    <option value= "Reynosa"> Reynosa</option>
-                                    <option value= "Río Bravo">Río Bravo</option>
-                                    <option value= "San Carlos"> San Carlos</option>
-                                    <option value= "San Fernando">San Fernando</option>
-                                    <option value= "San Nicolás">San Nicolás</option>
-                                    <option value= "Soto la Marina"> Soto la Marina</option>
-                                    <option value= "Tampico">  Tampico</option>
-                                    <option value= "Tula"> Tula</option>
-                                    <option value= "Valle Hermoso">Valle Hermoso</option>
-                                    <option value= "Victoria">Victoria</option>
-                                    <option value= "Villagránvalue">Villagrán</option>
-                                    <option value= "Xicoténcatlvalue">Xicoténcatl</option>
+                                    
                                 </select>
                             </div>
         

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Jurisdiccion;
+use App\Estado;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,6 +43,16 @@ class RegisterController extends Controller
     }
 
     /**
+     * Muestra el formulario de registro con las entidades
+     * 
+     */
+    public function showRegistrationForm()
+    {
+        $estados = Estado::orderBy('nombre_estado','ASC')->get();
+        return view('auth.register', compact('estados'));
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -52,14 +64,14 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'sistema' => ['required', 'string', 'max:255'],
-            'tipoPerfil' => ['required', 'string', 'max:255'],
-            'institucion' => ['required', 'string', 'max:255'],
-            'entidad' => ['required', 'string', 'max:255'],
-            'jurisdiccion' => ['required', 'string', 'max:255'],
-            'municipio' => ['required', 'string', 'max:255'],
-            'localidad' => ['required', 'string', 'max:255'],
-            'unidadMedica' => ['required', 'string', 'max:255'],
+            'sistema' => [ 'string', 'max:255'],
+            'tipoPerfil' => [ 'string', 'max:255'],
+            'institucion' => [ 'string', 'max:255'],
+            'entidad' => [ 'string', 'max:255'],
+            'jurisdiccion' => [ 'string', 'max:255'],
+            'municipio' => [ 'string', 'max:255'],
+            'localidad' => [ 'string', 'max:255'],
+            'unidadMedica' => [ 'string', 'max:255'],
         ]);
     }
 

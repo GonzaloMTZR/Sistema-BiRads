@@ -81,5 +81,6 @@
     <script src="{{asset('assets/js/es5/script.min.js')}}"></script>
     <script src="{{asset('assets/js/es5/sidebar.large.script.min.js')}}"></script>
     <script src="{{asset('assets/js/es5/customizer.script.min.js')}}"></script>
+    @yield('registro-js')
 </body>
 </html>
