@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Localidad extends Model
 {
+    protected $table = 'localidades';
+
     public function jurisdicciones(){
         return $this->belongsTo('App\Jurisdiccion', 'jurisdiccion_id');
     }

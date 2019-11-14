@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Paciente extends Model
 {
-    public function Estudios(){
+    public function estudios(){
         return $this->belongsToMany('App\Estudio')
         ->withTimestamps();
     }

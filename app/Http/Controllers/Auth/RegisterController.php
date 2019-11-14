@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Jurisdiccion;
 use App\Estado;
+use App\Institucion;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -48,8 +49,9 @@ class RegisterController extends Controller
      */
     public function showRegistrationForm()
     {
-        $estados = Estado::orderBy('nombre_estado','ASC')->get();
-        return view('auth.register', compact('estados'));
+        $estados = Estado::all();
+        $instituciones = Institucion::all();
+        return view('auth.register', compact('estados', 'instituciones'));
     }
 
     /**

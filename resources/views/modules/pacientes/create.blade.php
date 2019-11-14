@@ -18,6 +18,19 @@
         </div>
     </div>
 
+    @if($errors)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger background-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                <p>{{$error}}</p>
+            </div>
+        @endforeach
+    @endif
+
+    
+
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-left">
@@ -48,13 +61,10 @@
                             <div class="col-sm-4">
                                 <label name="entidad" for="my-input">Entidad de nacimiento</label>
                                 <select class="form-control" name="entidad" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    <option value= "Abasolo">Abasolo</option>
-                                    <option value= "Aldama">Aldama</option>
-                                    <option value= "Altamira">Altamira</option>
-                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
-                                    <option value= "Burgos">Burgos</option>
-                                    
+                                    <option value="0" selected="true" disabled>Seleccione un estado</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{$estado->nombre_estado}}">{{$estado->nombre_estado}}</option>
+                                    @endforeach
                                 
                                 </select>
                                 
@@ -91,8 +101,8 @@
                             </div>
         
                             <div class="col-sm-3">
-                                <label for="my-input">Municipio</label>
-                                <input type="text" name="municipio" class="form-control">
+                                <label for="my-input">Telefono</label>
+                                <input type="text" name="telefono" class="form-control">
                             </div>
         
                             <div class="col-sm-3">
@@ -104,35 +114,28 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label name="entidadFederativa" for="my-input">Entidad Federeativa</label>
-                                <select class="form-control" name="entidadFederativa" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    <option value= "Abasolo">Abasolo</option>
-                                    <option value= "Aldama">Aldama</option>
-                                    <option value= "Altamira">Altamira</option>
-                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
-                                    <option value= "Burgos">Burgos</option>
-                                    
+                                <select class="form-control" name="entidadFederativa" id="entidad">
+                                    <option value="0" selected disabled>Seleccione la entidad</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                     
         
                             <div class="col-sm-4">
                                 <label name="jurisdiccion" for="my-input">Jurisdicción</label>
-                                <select class="form-control" name="jurisdiccion" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    <option value= "Abasolo">Abasolo</option>
-                                    <option value= "Aldama">Aldama</option>
-                                    <option value= "Altamira">Altamira</option>
-                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
-                                    <option value= "Burgos">Burgos</option>
-                                    
+                                <select class="form-control" name="jurisdiccion" id="jurisdiccion">
+                                    <option value="0" selected disabled>Seleccione una jurisdiccion</option>
                                 </select>
                             </div>
         
                             <div class="col-sm-4">
-                                <label for="my-input">Telefono</label>
-                                <input type="text" name="telefono" class="form-control">
-                            </div>
+                                    <label for="my-input">Municipio</label>
+                                    <select name="municipio" id="municipio" class="form-control">
+                                        <option value="0" selected disabled>Seleccione un municipio</option>
+                                    </select>
+                                </div>
         
                         </div>
         
@@ -207,4 +210,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{asset('js/registro.js')}}"></script>
 @endsection

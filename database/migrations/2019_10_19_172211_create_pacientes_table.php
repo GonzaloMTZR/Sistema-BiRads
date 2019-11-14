@@ -40,8 +40,8 @@ class CreatePacientesTable extends Migration
             $table->text('telefono_alter')->nullable();
 
             //otros
-            $table->text('correoElectronico');
-            $table->text('tiempoResidencia');
+            $table->text('correoElectronico')->nullable();
+            $table->text('tiempoResidencia')->nullable();
 
             //Seguro
             $table->text('afiliacion')->nullable();

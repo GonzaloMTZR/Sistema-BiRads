@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Estado;
+use App\Jurisdiccion;
+use App\Municipio;
+use App\Localidad;
+use App\UnidadMedica;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class EstadoController extends Controller
 {
@@ -85,7 +90,45 @@ class EstadoController extends Controller
 
     /**
     * Funcion para el select dinamico para el registro de pacientes
-    * y el registro de doctorees
-    * 
+    * y el registro de doctores
+    * trea las jurisdicciones
     */
+    public function getJurisdicciones(){
+        $estados_id = Input::get('estado_id');
+        $jurisdicciones = Jurisdiccion::where('estado_id', '=',  $estados_id)->get();
+        return response()->json($jurisdicciones);
+    }
+
+    /**
+    * Funcion para el select dinamico para el registro de pacientes
+    * y el registro de doctores
+    * trae los municipios
+    */
+    public function getMunicipios(){
+        $jurisdiccion_id = Input::get('jurisdiccion_id');
+        $municipios = Municipio::where('jurisdiccion_id', '=',  $jurisdiccion_id)->get();
+        return response()->json($municipios);
+    }
+
+    /**
+    * Funcion para el select dinamico para el registro de pacientes
+    * y el registro de doctores
+    * trae las localidaes
+    */
+    public function getLocalidades(){
+        $municipio_id = Input::get('municipio_id');
+        $localidades = Localidad::where('municipio_id', '=',  $municipio_id)->get();
+        return response()->json($localidades);
+    }
+
+    /**
+    * Funcion para el select dinamico para el registro de pacientes
+    * y el registro de doctores
+    * trae las unidades medicas
+    */
+    public function getUnidadesMedicas(){
+        $localidad_id = Input::get('localidad_id');
+        $unidadesMedicas = UnidadMedica::where('localidad_id', '=',  $localidad_id)->get();
+        return response()->json($unidadesMedicas);
+    }
 }

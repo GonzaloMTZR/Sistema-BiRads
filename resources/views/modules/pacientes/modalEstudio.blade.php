@@ -17,15 +17,14 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="my-input">Institución</label>
-                                <select name="institucion" id="" class="form-control">
-                                    <option value="Opcion 1">Opcion 1</option>
-                                </select>
+                                <input type="text" name="institucion" class="form-control">
                             </div>
 
                             <div class="col-sm-4">
                                 <label for="my-input">Entidad/Delegación</label>
-                                <select name="entidad" id="" class="form-control">
-                                    <option value="Opcion 1">Opcion 1</option>
+                                <select name="entidad" id="entidad" class="form-control">
+                                    <option value="0" selected disabled>Seleccione un estado</option>
+                                    
                                 </select>
                             </div>
 
@@ -103,3 +102,7 @@
         </div>
     </div>
 </div>
+
+@section('js')
+    
+@endsection

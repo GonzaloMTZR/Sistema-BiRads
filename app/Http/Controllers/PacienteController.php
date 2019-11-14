@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Paciente;
 use App\Estudio;
+use App\Estado;
+use App\Municipio;
+use App\Jurisdiccion;
 use Illuminate\Http\Request;
-use Alert;
+use App\Http\Requests\StorePacientesRequest;
 
 class PacienteController extends Controller
 {
@@ -32,7 +35,8 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        return view('modules.pacientes.create');
+        $estados = Estado::all();
+        return view('modules.pacientes.create', compact('estados'));
         
     }
 
@@ -42,9 +46,8 @@ class PacienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePacientesRequest $request)
     {
-        
         $paciente = new Paciente();
 
         $paciente->nombre = $request->input('nombre');
@@ -72,7 +75,7 @@ class PacienteController extends Controller
 
         //dd($paciente);
         $paciente->save();
-        return redirect('/pacientes');
+        return redirect('/pacientes')->with('success-message', 'Paciente guardado con éxito!');
         
     }
 
@@ -83,8 +86,9 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Paciente $paciente)
-    {
-        return view('modules.pacientes.show', compact('paciente'));
+    {   
+        $estado = Estado::with('jurisdicciones')->get();
+        return view('modules.pacientes.show', compact('paciente', 'estado'));
     }
 
     /**
@@ -116,9 +120,12 @@ class PacienteController extends Controller
      * @param  \App\Paciente  $paciente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Paciente $paciente)
+    public function destroy($id)
     {
-        //
+        $pacientes = Paciente::findOrFail($id);
+        $pacientes->estudios()->detach();
+        $pacientes->delete();
+        return redirect('/pacientes')->with('success-message', 'El paciente fue eliminado con éxito!');
     }
 
     public function addEstudio(Request $request, Paciente $paciente){
@@ -138,6 +145,6 @@ class PacienteController extends Controller
         $estudio->save();
 
         $paciente->estudios()->attach($estudio->id);
-        return redirect()->back();//->with('success-message', 'Pago de abono realizado con éxito!');
+        return redirect()->back()->with('success-message', 'El estudio se agreó con éxito al paciente!');
     }
 }

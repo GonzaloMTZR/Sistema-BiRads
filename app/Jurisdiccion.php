@@ -9,7 +9,7 @@ class Jurisdiccion extends Model
     protected $table = 'jurisdicciones';
 
     public function estados(){
-        return $this->belongsTo('App\Estado', 'jurisdiccion_id');
+        return $this->belongsTo('App\Estado', 'estado_id');
     }
 
     public function localidades(){

@@ -15,7 +15,7 @@
             <li class="nav-item {{ request()->is('jurisdicciones/*') ? 'active' : '' }}" data-item="jurisdicciones">
                 <a class="nav-item-hold" href="#">
                     <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="nav-text">jurisdicciones</span>
+                    <span class="nav-text">Jurisdicciones y Unidades Médicas</span>
                 </a>
                 <div class="triangle" ></div>
             </li>            
@@ -56,9 +56,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a href="/unidades-medicas/create">
+                        <i class="nav-icon i-Clock-4"></i>
+                        <span class="item-name">Agregar una unidad médica</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="/unidades-medicas">
                         <i class="nav-icon i-Clock-4"></i>
-                        <span class="item-name">Ver Listado de unidades medicas</span>
+                        <span class="item-name">Ver Listado de unidades médicas</span>
                     </a>
                 </li>
             </li>

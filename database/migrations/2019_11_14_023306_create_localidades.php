@@ -17,8 +17,8 @@ class CreateLocalidades extends Migration
             $table->bigIncrements('id');
             $table->text('nombre_localidad');
             $table->text('codigo_localidad');
-            $table->unsignedBigInteger('jurisdiccion_id');
-            $table->foreign('jurisdiccion_id')->references('id')->on('jurisdicciones')->onDelete('cascade');
+            $table->unsignedBigInteger('municipio_id');
+            $table->foreign('municipio_id')->references('id')->on('municipios')->onDelete('cascade');
             $table->timestamps();
         });
     }

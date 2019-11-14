@@ -25,16 +25,31 @@ Route::resource('/pacientes', 'PacienteController');
 Route::post('/pacientes/{paciente}/addEstudio', 'PacienteController@addEstudio')->name('pacientes.addEstudio');
 
 /**
- * Rutas de las jurisdicciones y de las unidades medicas
+ * Rutas de las jurisdicciones 
  * Aquí estan las rutas de las funciones que se pueden realizar
  */
 Route::resource('/jurisdicciones', 'JurisdiccionController');
+
+
+/**
+ * Rutas de las  unidades medicas
+ * Aquí estan las rutas de las funciones que se pueden realizar
+ */
 Route::resource('/unidades-medicas', 'UnidadMedicaController');
 
-
+/**
+ * Rutas de la autenticacion de usuarios
+ */
 Auth::routes();
-
 Route::get('/logout', function(){
     Auth::logout();
     return view('auth.login');
 });
+
+/**
+ * Rutas para los select dinamicos
+ */
+Route::get('getJurisdicciones', 'EstadoController@getJurisdicciones');
+Route::get('getMunicipios', 'EstadoController@getMunicipios');
+Route::get('getLocalidades', 'EstadoController@getLocalidades');
+Route::get('getUnidadesMedicas', 'EstadoController@getUnidadesMedicas');

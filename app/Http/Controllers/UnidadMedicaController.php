@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\UnidadMedica;
+use App\Localidad;
+use App\Estado;
 use Illuminate\Http\Request;
 
 class UnidadMedicaController extends Controller
@@ -14,7 +16,7 @@ class UnidadMedicaController extends Controller
      */
     public function index()
     {
-        //
+        return view('modules.unidades_medicas.index');
     }
 
     /**
@@ -24,7 +26,8 @@ class UnidadMedicaController extends Controller
      */
     public function create()
     {
-        //
+        $estados = Estado::all();
+        return view('modules.unidades_medicas.create', compact('estados'));
     }
 
     /**

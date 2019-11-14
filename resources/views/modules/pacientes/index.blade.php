@@ -22,6 +22,15 @@
         </div>
     </div>
 
+    @if(session()->has('success-message'))
+        <div class="alert alert-success background-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session()->get('success-message') }}
+        </div>
+    @endif
+
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-left">

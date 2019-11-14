@@ -21,6 +21,15 @@
         </div>
     </div>
 
+    @if(session()->has('success-message'))
+        <div class="alert alert-success background-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session()->get('success-message') }}
+        </div>
+    @endif
+
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
             <div class="card text-left">
@@ -31,28 +40,22 @@
                             <thead>
                                 <tr>
                                     <th>Estado</th>
-                                    <th>Jurisdicción</th>
-                                    <th>Municipio</th>
-                                    <th>Localidad</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($jurisdicciones as $jurisdiccion)
+                                @foreach ($estados as $estado)
                                     <tr>
-                                        <td>{{$jurisdiccion->estado}}</td>
-                                        <td>{{$jurisdiccion->jurisdiccion}}</td>
-                                        <td>{{$jurisdiccion->municipio}}</td>
-                                        <td>{{$jurisdiccion->localidad}}</td>
+                                        <td>{{$estado->nombre_estado}}</td>
                                     <td>
-                                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#acciones{{$jurisdiccion->id}}" aria-expanded="false" aria-controls="acciones">
+                                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#acciones{{$estado->id}}" aria-expanded="false" aria-controls="acciones">
                                             Acciones
                                         </button>
 
-                                        <div class="collapse" id="acciones{{$jurisdiccion->id}}">
+                                        <div class="collapse" id="acciones{{$estado->id}}">
                                             <div class="card card-body">
                                                 <ul class="">
-                                                    <li class=""><a href="/jurisdicciones/{{$jurisdiccion->id}}"><i class="nav-icon i-Clock-4"></i></a></li>
+                                                    <li class=""><a href="/jurisdicciones/{{$estado->id}}"><i class="nav-icon i-Clock-4"></i></a></li>
                                                     <li>Editar</li>
                                                     <li>Borrar</li>
                                                 </ul>
@@ -67,9 +70,6 @@
                             <tfoot>
                                 <tr>
                                     <th>Estado</th>
-                                    <th>Jurisdicción</th>
-                                    <th>Municipio</th>
-                                    <th>Localidad</th>
                                     <th>Acciones</th>
                                 </tr>
                             </tfoot>

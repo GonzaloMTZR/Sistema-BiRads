@@ -1,20 +1,20 @@
 @extends('layouts.master')
-@section('title', 'Registrar una jurisdicción')
+@section('title', 'listado de unidades médicas')
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1>Formulario de registro de jurisdicciones</h1>
+        <h1>Formulario de registro de unidades médicas</h1>
         <ul>
-            <li><a href="/jurisdicciones">jurisdicciones</a></li>
-            <li>Registro de jurisdicciones y unidades medicas</li>
+            <li><a href="/unidades-medicas">Unidades Médicas</a></li>
+            <li>Registro unidades medicas</li>
         </ul>
     </div>
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Registro de jurisdicciones</h4>
-            <p>Complete toda la información solicitada para registrar una jurisdicción y una unidad meédica al sistema</p>
+            <h4>Registro de unida médicas</h4>
+            <p>Complete toda la información solicitada para registrar una unidad meédica al sistema</p>
         </div>
     </div>
 
@@ -44,9 +44,7 @@
                                 <label for="my-input">Estado</label>
                                 <select name="nombre_estado" class="form-control" id="">
                                     <option select disabled>Seleccione un estado</option>
-                                    @foreach ($estados as $estado)
-                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
-                                    @endforeach
+                                    
                                 </select>
                             </div>
                             

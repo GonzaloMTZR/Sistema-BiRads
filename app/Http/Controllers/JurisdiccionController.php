@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Jurisdiccion;
+use App\Estado;
+use App\Localidad;
+use App\UnidadMedica;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreJurisdiccionRequest;
+
 
 class JurisdiccionController extends Controller
 {
@@ -14,8 +19,11 @@ class JurisdiccionController extends Controller
      */
     public function index()
     {
-        $jurisdicciones = Jurisdiccion::orderBy('jurisdiccion', 'asc')->get();
-        return view('modules.jurisdicciones.index', compact('jurisdicciones'));
+        $jurisdicciones = Jurisdiccion::orderBy('nombre_jurisdiccion', 'asc')->get();
+        $estados = Estado::orderBy('nombre_estado', 'asc')->get();
+        $localidades = Localidad::orderBy('nombre_localidad', 'asc')->get();
+        $unidadesMedicas = UnidadMedica::orderBy('nombre_unidadMedica', 'asc')->get();
+        return view('modules.jurisdicciones.index', compact('jurisdicciones', 'estados', 'localidades', 'unidadesMedicas'));
     }
 
     /**
@@ -24,8 +32,9 @@ class JurisdiccionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view ('modules.jurisdicciones.create');
+    {   
+        $estados = Estado::all();
+        return view ('modules.jurisdicciones.create', compact('estados'));
     }
 
     /**
@@ -34,9 +43,36 @@ class JurisdiccionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreJurisdiccionRequest $request)
     {
-        //
+        $jurisdiccion = new Jurisdiccion();
+        $localidad = new Localidad();
+        $unidadMedica = new UnidadMedica();
+
+        $estado = $request->input('nombre_estado');
+        /**
+         * Guarda la relacion del estado con la jurisdiccion
+         */
+        $jurisdiccion->nombre_jurisdiccion = $request->input('nombre_jurisdiccion');
+        $jurisdiccion->estados()->associate($estado);
+        $jurisdiccion->save();
+
+        /**
+         * Guarda la relacion de la jurisdiccion con el municipio/localidad
+         */
+        $localidad->nombre_localidad = $request->input('municipio');
+        $localidad->codigo_localidad = $request->input('codigo_localidad');
+        $localidad->jurisdicciones()->associate($jurisdiccion->id);
+        $localidad->save();
+
+        /**
+         * Guarda la relación entre el municipio y la unidad medica
+         */
+        $unidadMedica->nombre_unidadMedica = $request->input('unidad_medica');
+        $unidadMedica->localidades()->associate($localidad);
+        $unidadMedica->save();
+
+        return redirect('/jurisdicciones')->with('success-message', 'La jurisdicción se guardó con éxito!');
     }
 
     /**
@@ -83,19 +119,5 @@ class JurisdiccionController extends Controller
     public function destroy(Jurisdiccion $jurisdiccion)
     {
         //
-    }
-
-    /**
-    * Funcion para el select dinamico para el registro de pacientes
-    * y el registro de doctorees
-    * 
-    */
-    public function getJurisdiccion(){      
-        $jurisdiccion = Input::get('jurisdiccion');
-        $jurisdicciones = DB::table('jurisdicciones')
-        ->select('jurisdiccion')
-        ->groupBy('jurisdiccion')->where('id', '=', $jurisdiccion)->get();
-        return response()->json($jurisdicciones);
-        
     }
 }
