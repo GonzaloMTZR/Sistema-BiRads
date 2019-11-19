@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('sistema'); //Nombre del sistema de salud
-            $table->string('tipoPerfil'); //Tipo de usuario
             $table->string('institucion'); //Nombre de la institucion a la que pertenece el doctor
             $table->string('entidad'); //Estado
             $table->string('jurisdiccion');

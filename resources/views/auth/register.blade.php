@@ -20,10 +20,7 @@
                             <div class="col-md-6">
                                 <select name="sistema" id="sistema" class="form-control {{ $errors->has('sistema') ? ' is-invalid' : '' }}" value="{{ old('sistema') }}" required autofocus>
                                     <option selected disabled>Seleccione el tipo de sistema</option>
-                                    <option value="CACU">CACU</option>
                                     <option value="CAMA">CAMA</option>
-                                    <option value="MIXTO">MIXTO</option>
-                                    <option value="ADMIN">ADMIN</option>
                                 </select>
 
                                 @if ($errors->has('sistema'))
@@ -38,11 +35,12 @@
                             <label for="tipoPerfil" class="col-md-4 col-form-label text-md-right">{{ __('Perfil') }}</label>
 
                             <div class="col-md-6">
-                                <select name="tipoPerfil" id="tipoPerfil" class="form-control {{ $errors->has('tipoPerfil') ? ' is-invalid' : '' }}" value="{{ old('tipoPerfil') }}" required autofocus>
+                                <select name="role" id="tipoPerfil" class="form-control {{ $errors->has('tipoPerfil') ? ' is-invalid' : '' }}" value="{{ old('tipoPerfil') }}" required autofocus>
                                     <option selected disabled>Seleccione el tipo de perfil</option>
-                                    <option value="Doctor">Doctor</option>
-                                    <option value="Administrador">Administrador</option>
-                                    <option value="Coordinador">Coordinador</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                    @endforeach
+                                    
                                 </select>
 
                                 @if ($errors->has('tipoPerfil'))

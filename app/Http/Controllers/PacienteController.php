@@ -87,8 +87,10 @@ class PacienteController extends Controller
      */
     public function show(Paciente $paciente)
     {   
-        $estado = Estado::with('jurisdicciones')->get();
-        return view('modules.pacientes.show', compact('paciente', 'estado'));
+        //$estado = Estado::has('jurisdicciones')->get();
+        //$estado = Estado::where('estado_id', $p_id)->get();
+        //dd($estado);
+        return view('modules.pacientes.show', compact('paciente'));
     }
 
     /**

@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class RegisterController extends Controller
 {
@@ -51,7 +54,8 @@ class RegisterController extends Controller
     {
         $estados = Estado::all();
         $instituciones = Institucion::all();
-        return view('auth.register', compact('estados', 'instituciones'));
+        $roles = Role::orderBy('name','ASC')->get();
+        return view('auth.register', compact('estados', 'instituciones', 'roles'));
     }
 
     /**
@@ -67,7 +71,6 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'sistema' => [ 'string', 'max:255'],
-            'tipoPerfil' => [ 'string', 'max:255'],
             'institucion' => [ 'string', 'max:255'],
             'entidad' => [ 'string', 'max:255'],
             'jurisdiccion' => [ 'string', 'max:255'],
@@ -85,12 +88,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'sistema' => $data['sistema'],
-            'tipoPerfil' => $data['tipoPerfil'],
             'institucion' => $data['institucion'],
             'entidad' => $data['entidad'],
             'jurisdiccion' => $data['jurisdiccion'],
@@ -98,5 +100,8 @@ class RegisterController extends Controller
             'localidad' => $data['localidad'],
             'unidad_medica' => $data['unidadMedica'], 
         ]);
+
+        $user->assignRole(request('role'));
+        return $user;
     }
 }

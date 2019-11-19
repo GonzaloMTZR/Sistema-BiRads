@@ -69,7 +69,7 @@
                             
                             <tr>
                                 <th scope="row">Calle y número</th>
-                                <td><a href="#!">{{$paciente->calle}}</a></td>
+                                <td>{{$paciente->calle}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Colonia</th>
@@ -81,11 +81,15 @@
                             </tr>
                             <tr>
                                 <th scope="row">Entidad Federativa</th>
-                                <td>{{$paciente->entidadFederativa}}</td>
+                                <!--@ foreach($estado as $item)
+                                    <td>{ { $item->jurisdicciones->nombre_estado }}</td>
+                                @ endforeach-->
                             </tr>
                             <tr>
                                 <th scope="row">Jurisdicción</th>
-                                <td>{{$paciente->jurisdiccion}}</a></td>
+                                <!--@ foreach($estado as $item)
+                                    <td>{ { $item->jurisdicciones->nombre_jurisdiccion }}</td>
+                                @ endforeach-->
                             </tr>
                             
                 
