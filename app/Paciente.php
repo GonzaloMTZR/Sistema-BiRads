@@ -17,7 +17,6 @@ class Paciente extends Model
     }
 
     public function birads(){
-        return $this->hasMany('App\Birad')
-        ->withTimestamps();
+        return $this->hasMany('App\Birad', 'paciente_id');
     }
 }

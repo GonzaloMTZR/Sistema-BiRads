@@ -201,8 +201,8 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr style="text-align:center;">
-                                        @if ($factor != null)
+                                    @foreach ($factores as $factor)
+                                        <tr style="text-align:center;">
                                             <td>{{$factor->menarca}}</td>   
                                             @if($factor->otroFamiliar == null)
                                                 <td>{{$factor->familiaresAnt}}</td>
@@ -219,13 +219,9 @@
                                             @endif 
                                             
                                             <td>{{$factor->otrosFactores}}</td>    
-                                            <td>{{\Carbon\Carbon::parse($factor->created_at)->format('d/m/Y')}}</td>  
-                                            
-                                        @else
-                                            <td colspan="6">Actualmente este paciente no cuenta con factores de riesgo asociados a su historial clínico.</td>
-                                        @endif
-                                                                                 
-                                    </tr>
+                                            <td>{{\Carbon\Carbon::parse($factor->created_at)->format('d/m/Y')}}</td> 
+                                        </tr> 
+                                    @endforeach     
                                 </tbody>
                             </table>
                         </div>
@@ -265,9 +261,8 @@
                                 </thead>
 
                                 <tbody>
-                                    
-                                    <tr style="text-align:center;">
-                                        @if ($estudio != null)
+                                    @foreach ($estudios as $estudio)
+                                        <tr style="text-align:center;">
                                             <td>{{$paciente->curp}}</td>
 
                                             @if($estudio->otroEstudio == null)
@@ -283,12 +278,8 @@
                                                     <i class="nav-icon i-Eye font-weight-bold"></i>
                                                 </a>
                                             </td>   
-                                        @else
-                                            <td colspan="6">Actualmente este paciente no cuenta con estudios asociados a su historial clínico.</td>
-                                        @endif
-                                                                                 
-                                    </tr>
-                                  
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -296,64 +287,61 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 
-    * Tabla de historial de BIRADS
-    -->
-    <div class="card">
-        <div class="card-header" style="background-color:pink">
-            <h4>Historial de estudios BIRAD</h4>
-            <div class="float-right">
-                <button class="btn btn-primary" data-toggle="modal" data-target="#estudio" >Agregar BIRAD</button> 
-                @include('modules/pacientes/modal/modalEstudio')
+        <br>
+
+        <!--
+        * Birads
+        -->
+
+        <div class="card" >
+            <div class="card-header" style="background-color:pink">
+                <h4>BIRADS</h4>
+                <div class="float-right">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#birads" >Agregar BIRAD</button> 
+                    @include('modules/pacientes/modal/modalBirads')
+                </div>
             </div>
-        </div>
-                    
-    
-        <div class="card-block">
-            <div class="table-responsive">
-                <div class="table-content">
-                    <div class="project-table">
-                        <table id="birads" class="table table-striped dt-responsive nowrap" style="width:100%">
-                            <thead>
-                                <tr style="text-align:center;">
-                                    <th >Identificador (CURP)</th>
-                                    <th >Nivel de BIRADS</th>
-                                    <th >Resultado</th>
-                                    <th >Nombre de la paciente</th>
-                                    <th >Dirección</th>
-                                    <th >Acciones</th>
-                                </tr>
-                            </thead>
+                        
+        
+            <div class="card-block">
+                <div class="table-responsive">
+                    <div class="table-content">
+                        <div class="project-table">
+                            <table id="birads" class="table table-striped dt-responsive nowrap" style="width:100%">
+                                <thead>
+                                    <tr style="text-align:center;">
+                                        <th>Clave de la paciente</th>
+                                        <th>Resultado</th>
+                                        <th>Nombre de la paciente</th>
+                                        <th>Domicilio / Localidad</th>
+                                        <th>Repetir estudio</th>
+                                    </tr>
+                                </thead>
 
-                            <tbody>
-                                
-                                <tr style="text-align:center;">
-                                    
-                                    @if ($birads != null)
-                                        @foreach ($birads as $birad)
-                                            <td>{{$paciente->curp}}</td>
-                                            <td>{{$birad->BIRADS}}</td>
-                                            <td>{{$birad->resultado}}</td>
-                                            <td>{{$paciente->nombre}} {{$paciente->aPaterno}} {{$paciente->aMaterno}}</td>
-                                            <td>{{$paciente->calle}}</td>
-                                            <td>Reperir estudio</td>
-                                        @endforeach
-                                    @else
-                                        <td colspan="6">Actualmente este paciente no cuenta con BIRADS asociados a su historial clínico.</td>
-                                    @endif
-                                                                   
-                                </tr>
-                              
-                            </tbody>
-                        </table>
+                                <tbody>
+                                    @foreach ($birads as $birad)    
+                                        <tr style="text-align:center;">                                        
+                                            <td>{{$birad->curp}}</td>
+                                            <td>{{$birad->resultado}}</td>                                          
+                                            <td>{{$birad->nombre}} {{$birad->aPaterno}} {{$birad->aMaterno}}</td>
+                                            <td>{{$birad->calle}}</td>
+                                            @if($birad->resultado == 'Repetir Estudio')
+                                                <td>Repetir estudio</td>
+                                            @else
+                                                <td>- - - -</td>
+                                            @endif
+                                        </tr>
+                                    @endforeach  
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
     
 @endsection
 
@@ -408,7 +396,6 @@
             } /* Aqui acaba el Languaje */
         });
 
-        
         $('#birads').DataTable({
             "language": {
                 "decimal": "",
@@ -431,6 +418,8 @@
                 } /* Aqui acaba la paginación */
             } /* Aqui acaba el Languaje */
         });
+        
+        console.log('Entro en modal estudio aqui ready');
         
     </script>
 @endsection

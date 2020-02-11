@@ -8,6 +8,7 @@ use App\Estado;
 use App\Municipio;
 use App\Jurisdiccion;
 use App\FactorDeRiesgo;
+use App\Birad;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePacientesRequest;
 use Illuminate\Support\Facades\DB;
@@ -117,32 +118,32 @@ class PacienteController extends Controller
         'municipios.nombre_municipio', 'localidades.nombre_localidad')
         ->where('pacientes.id', $paciente->id)->get()->first();
 
-        $factor = DB::table('factor_de_riesgo_paciente')
-        ->select('pacientes.id', 'factores_de_riesgos.*', 'factor_de_riesgo_paciente.*')
+        $factores = DB::table('factor_de_riesgo_paciente')
+        ->select('pacientes.id', 'factores_de_riesgos.*')
         ->join('pacientes', 'pacientes.id', '=', 'factor_de_riesgo_paciente.paciente_id')
         ->join('factores_de_riesgos', 'factores_de_riesgos.id', '=', 'factor_de_riesgo_paciente.factor_de_riesgo_id')
         ->where('factor_de_riesgo_paciente.paciente_id', $paciente->id)
-        ->get()->first();
+        ->get();
 
-        $estudio = DB::table('estudio_paciente')
+        $estudios = DB::table('estudio_paciente')
         ->select('pacientes.curp', 'pacientes.id','pacientes.nombre', 'pacientes.aMaterno', 'pacientes.aPaterno', 'estudios.*', 'estudio_paciente.*')
         ->join('pacientes', 'pacientes.id', '=', 'estudio_paciente.paciente_id')
         ->join('estudios', 'estudios.id', '=', 'estudio_paciente.estudio_id')
         ->where('estudio_paciente.paciente_id', $paciente->id)
-        ->get()->first();
+        ->get();
 
         $birads = DB::table('birads')
         ->select('pacientes.calle', 'pacientes.curp', 'pacientes.id','pacientes.nombre', 'pacientes.aMaterno', 'pacientes.aPaterno', 'birads.*')
         ->join('pacientes', 'pacientes.id', '=', 'birads.paciente_id')
         ->where('birads.paciente_id', $paciente->id)
-        ->get()->toArray();
-        
-        dd($birads);
+        ->get();
+
+        //dd($birads);
         //dd($estudio);
         //dd($paciente);
         //dd($factor);
 
-        return view('modules.pacientes.show', compact('paciente', 'factor', 'estudio', 'birads'));
+        return view('modules.pacientes.show', compact('paciente', 'factores', 'estudios', 'birads'));
     }
 
     /**
@@ -206,5 +207,18 @@ class PacienteController extends Controller
         $factor->save();
         $paciente->factoresDeRiesgo()->attach($factor->id);
         return redirect()->back()->with('success-message', 'El factor de riesgo se agregó con éxito al paciente!');
+    }
+
+    public function addBirad(Request $request, Paciente $paciente){
+        $birad = new Birad();
+
+        $birad->BIRADS = $request->input('birads');
+        $birad->resultado = $request->input('resultado');
+        $birad->fecha_de_toma = $request->input('fecha_de_toma');    
+        $birad->pacientes()->associate($paciente);
+
+        $birad->save();    
+
+        return redirect()->back()->with('success-message', 'Birad agregado con éxito al paciente!');
     }
 }

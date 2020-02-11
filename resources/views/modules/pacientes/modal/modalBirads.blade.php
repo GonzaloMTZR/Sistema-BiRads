@@ -10,18 +10,18 @@
             <div class="modal-body">
 
                 <div class="card-block">
-                    <form action="/pacientes/{{$paciente->id}}/birads" method="post">
+                    <form action="/pacientes/{{$paciente->id}}/addBirad" method="post">
                         @csrf
 
                         <div class="form-group row">
-                            <div class="col-sm-4" id="menarca">
+                            <div class="col-sm-4">
                                 <label for="">Fecha de toma</label>
-                                <input type="date" name="fecha_de_toma" id="menarca" class="form-control" placeholder="Fecha cuando se realizó el estudio">
+                                <input type="date" name="fecha_de_toma" class="form-control" placeholder="Fecha cuando se realizó el estudio">
                             </div>
 
-                            <div class="col-sm-4"  id="familares">
+                            <div class="col-sm-4">
                                 <label for="my-input">BIARDS</label>
-                                <select name="birads" id="birads" class="form-control">
+                                <select name="birads" class="form-control">
                                     <option selected disabled>Seleccione una opción</option>
                                     <option value="0">0</option>     
                                     <option value="1">1</option>     
@@ -33,9 +33,9 @@
                                 </select>
                             </div>
 
-                            <div class="col-sm-4" id="manopausia">
+                            <div class="col-sm-4" >
                                 <label for="">Resultados</label>
-                                <select name="resultados" id="resultados" class="form-control">
+                                <select name="resultado" class="form-control">
                                     <option selected disabled>Seleccione una opción</option>
                                     <option value="Positivo">Positivo</option>     
                                     <option value="Negativo">Negativo</option>  
@@ -56,62 +56,3 @@
         </div>
     </div>
 </div>
-
-@section('js')
-<script>
-    
-    $('#otroFamiliar').hide();
-    $('#edadMenopausia').hide();
-    console.log('entro en factor de riesgo');
-
-
-    $('#familiares').change(function(e){
-        if($(this).val() == 'Otro'){
-            $('#otroFamiliar').show();
-
-            $('#menarca').removeClass('col-sm-4');
-            $('#menarca').addClass('col-sm-3');
-
-            $('#familares').removeClass('col-sm-4');
-            $('#familares').addClass('col-sm-3');
-
-            $('#otroFamiliar').removeClass('col-sm-3');
-            $('#otroFamiliar').addClass('col-sm-3');
-
-            $('#manopausia').removeClass('col-sm-4');
-            $('#manopausia').addClass('col-sm-3');
-
-        }else{
-            $('#otroFamiliar').hide();
-
-            $('#menarca').removeClass('col-sm-3');
-            $('#menarca').addClass('col-sm-4');
-
-            $('#familares').removeClass('col-sm-3');
-            $('#familares').addClass('col-sm-4');
-
-            $('#otroFamiliar').removeClass('col-sm-3');
-            $('#otroFamiliar').addClass('col-sm-3');
-
-            $('#manopausia').removeClass('col-sm-4');
-            $('#manopausia').addClass('col-sm-4');
-        }
-
-    });
-
-    $('#menopausia').change(function(e){
-        if($(this).val() == 'Si'){
-            $('#edadMenopausia').show();
-            $('#edadMenopausia').addClass('col-sm-3');
-            $('#otrosFactores').removeClass('col-sm-12');
-            $('#otrosFactores').addClass('col-sm-9');
-        }else{
-            $('#edadMenopausia').hide();
-            $('#otrosFactores').addClass('col-sm-12');
-
-        }
-    });
-    
-</script>
-   
-@endsection
