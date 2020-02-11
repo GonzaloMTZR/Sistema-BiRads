@@ -12,7 +12,7 @@ class Jurisdiccion extends Model
         return $this->belongsTo('App\Estado', 'estado_id');
     }
 
-    public function localidades(){
-        return $this->hasMany('App\Localidad', 'jurisdiccion_id');
+    public function municipios(){
+        return $this->hasMany('App\Municipio', 'jurisdiccion_id');
     }
 }

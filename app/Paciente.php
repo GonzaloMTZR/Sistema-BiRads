@@ -10,4 +10,14 @@ class Paciente extends Model
         return $this->belongsToMany('App\Estudio')
         ->withTimestamps();
     }
+
+    public function factoresDeRiesgo(){
+        return $this->belongsToMany('App\FactorDeRiesgo')
+        ->withTimestamps();
+    }
+
+    public function birads(){
+        return $this->hasMany('App\Birad')
+        ->withTimestamps();
+    }
 }

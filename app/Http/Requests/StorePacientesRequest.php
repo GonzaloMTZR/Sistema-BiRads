@@ -40,7 +40,6 @@ class StorePacientesRequest extends FormRequest
             'telefono' => 'required',
             'afiliacion' => 'required',
             'numeroAfiliacion' => 'required',
-            
         ];
     }
 

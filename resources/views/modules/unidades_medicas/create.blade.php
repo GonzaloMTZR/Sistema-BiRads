@@ -34,52 +34,29 @@
             <div class="card text-left">
 
                 <div class="card-body">
-                    <form action="/jurisdicciones" method="post">
+                    <form action="/unidades-medicas" method="post">
                         @csrf
-                        
+
                         <h4 class="sub-title">Datos de la unidad médica</h4>
                         <div class="form-group row">
 
-                            <div class="col-sm-4">
-                                <label for="my-input">Seleccione el estado</label>
-                                <select name="nombre_estado" class="form-control" id="">
+                            <div class="col-sm-6">
+                                <label for="my-input">Seleccione la localidad donde se encuentra la unidad médica</label>
+                                <select name="nombre_localidad" class="form-control" id="">
                                     <option select disabled>Seleccione el estado</option>
-                                    @foreach ($estados as $estado)
-                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
+                                    @foreach ($localidades as $localidad)
+                                        <option value="{{$localidad->id}}">{{$localidad->nombre_localidad}}</option>
                                     @endforeach
                                 </select>
                             </div>
 
-                            <div class="col-sm-4">
-                                <label for="my-input">Seleccione la jurisdicción a la que pertenece</label>
-                                <select name="nombre_estado" class="form-control" id="">
-                                    <option select disabled>Seleccione el estado</option>
-                                    @foreach ($estados as $estado)
-                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            
-                            <div class="col-sm-4">
-                                <label for="my-input">Seleccione la localidad a la que pertenece la unidad médica</label>
-                                <select name="nombre_estado" class="form-control" id="">
-                                    <option select disabled>Seleccione el estado</option>
-                                    @foreach ($estados as $estado)
-                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                        </div>  
-                        
-                        <div class="form-group row">
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
                                 <label for="my-input">Nombre de la unidad médica</label>
                                 <input id="my-input" class="form-control" type="text" name="nombre_unidadMedica">
                             </div>
-                            
-                        </div>
-  
+
+                        </div>  
+
                         <div class="form-group">
                             <button type="submit" class="col-sm-12 btn" style="background-color:pink;">Agregar</button>
                         </div>

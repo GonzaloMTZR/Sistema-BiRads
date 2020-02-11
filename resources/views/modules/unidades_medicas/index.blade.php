@@ -18,6 +18,15 @@
         </div>
     </div>
 
+    @if(session()->has('success-message'))
+        <div class="alert alert-success background-success">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            {{ session()->get('success-message') }}
+        </div>
+    @endif
+
     @if($errors)
         @foreach($errors->all() as $error)
             <div class="alert alert-danger background-danger">
@@ -34,49 +43,32 @@
             <div class="card text-left">
 
                 <div class="card-body">
-                    <form action="/jurisdicciones" method="post">
-                        @csrf
-                        
-                        <h4 class="sub-title">Datos de la jurisdicción</h4>
-                        <div class="form-group row">
+                    <div class="table-responsive">
+                        <table id="unidades-medicas" class="display table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Uniadad Médica</th>
+                                    <th scope="col">Localidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($unidadesMedicas as $unidadMedica)
+                                    <tr>
+                                        <td>{{$unidadMedica->nombre_unidadMedica}}</td>
+                                        <td>{{$unidadMedica->nombre_localidad}}</td>
+                                    </tr>
+                                @endforeach
+                                
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th scope="col">Uniadad Médica</th>
+                                    <th scope="col">Localidad</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
 
-                            <div class="col-sm-4">
-                                <label for="my-input">Estado</label>
-                                <select name="nombre_estado" class="form-control" id="">
-                                    <option select disabled>Seleccione un estado</option>
-                                    
-                                </select>
-                            </div>
-                            
-                            <div class="col-sm-4">
-                                <label for="my-input">Jurisdicción</label>
-                                <input type="text" name="nombre_jurisdiccion" class="form-control"> 
-                            </div>
-
-                            <div class="col-sm-4">
-                                <label for="my-input">Municipio</label>
-                                <input type="text" name="municipio" class="form-control">                                    
-                            </div>
-
-                        </div>
-        
-                        <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label for="my-input">Codigo de localidad</label>
-                                <input type="text" name="codigo_localidad" class="form-control"> 
-                            </div>  
-                            
-                            <div class="col-sm-6">
-                                <label name="entidad" for="my-input">Unidad Médica</label>
-                                <input type="text" name="unidad_medica" class="form-control"> 
-                            </div> 
-                        </div>
-  
-                        <div class="form-group">
-                            <button type="submit" class="col-sm-12 btn" style="background-color:pink;">Agregar</button>
-                        </div>
-            
-                    </form>
                 </div>
             </div>
         </div>

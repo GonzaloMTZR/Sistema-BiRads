@@ -20,10 +20,10 @@
                             <div class="auth-logo text-center mb-4">
                                 <img src="assets/images/logo.png" alt="">
                             </div>
-                            <h1 class="mb-3 text-18">Check the Dashboard</h1>
+                            <h1 class="mb-3 text-18">Gracias por registrarte</h1>
 
                             <div class="mt-3 text-center">
-                                <a class=" btn btn-primary" href="{{route('starter')}}">Dashboard</a>
+                                <a class=" btn btn-primary" href="/">Dashboard</a>
                             </div>
                         </div>
                     </div>

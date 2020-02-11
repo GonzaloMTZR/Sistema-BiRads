@@ -40,11 +40,11 @@
                         <table id="pacientes" class="display table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Domicilio</th>
-                                    <th>Municipio</th>
-                                    <th>Entidad</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Domicilio</th>
+                                    <th scope="col">Municipio</th>
+                                    <th scope="col">Entidad</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,19 +52,25 @@
                                     <tr>
                                         <td>{{$paciente->nombre}}</td>
                                         <td>{{$paciente->calle}}</td>
-                                        <td>{{$paciente->municipio}}</td>
-                                        <td>{{$paciente->entidadFederativa}}</td>
-                                    <td>
-                                        <a href="/pacientes/{{$paciente->id}}">
-                                            <button class="btn btn-sm btn-primary">Ver</button>
-                                        </a>
-                                        <a href="/pacientes/{{$paciente->id}}/edit">
-                                            <button class="btn btn-sm btn-warning" style="color:white;">Editar</button>
-                                        </a>
-                                        <a href="/pacientes/{{$paciente->id}}">
-                                            <button class="btn btn-sm btn-danger">Eliminar</button>
-                                        </a>
-                                    </td>
+                                        <td>{{$paciente->nombre_municipio}}</td>
+                                        <td>{{$paciente->nombre_estado}}</td>
+                                        <td>
+                                            <a href="/pacientes/{{$paciente->id}}" class="text-success mr-2">
+                                                <i class="nav-icon i-Eye font-weight-bold"></i>
+                                            </a>
+
+                                            <a href="/pacientes/{{$paciente->id}}/edit" class="text-warning mr-2">
+                                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                            </a>
+                                            
+                                            <form method="POST" action="/pacientes/{{$paciente->id}}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="text-danger mr-2" style="border:none;">
+                                                    <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                                </button>   
+                                            </form>                                             
+                                        </td>
                                     
                                     </tr>
                                 @endforeach
@@ -72,11 +78,11 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Nombre</th>
-                                    <th>Domicilio</th>
-                                    <th>Municipio</th>
-                                    <th>Hospital</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Domicilio</th>
+                                    <th scope="col">Municipio</th>
+                                    <th scope="col">Entidad</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -116,6 +122,8 @@
                 } /* Aqui acaba el Languaje */
             });
         });
+
+        
     </script>
     
 @endsection

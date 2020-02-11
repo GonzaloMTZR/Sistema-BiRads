@@ -93,10 +93,12 @@
                     <div class="dropdown-header">
                         @auth
                             <i class="i-Lock-User mr-1"></i>{{Auth::user()->name}}
+                            @foreach( Auth::user()->roles()->pluck('name') as $role_name)
+                                <p>{{$role_name}}</p>
+                            @endforeach
                         @endauth
-
                         @guest
-                        <i class="i-Lock-User mr-1"></i>Usuario Invitado
+                            <i class="i-Lock-User mr-1"></i>Usuario Invitado
                         @endguest
                         
                     </div>

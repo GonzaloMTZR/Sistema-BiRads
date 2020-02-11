@@ -10,7 +10,7 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-
+            <!--@ role('Responsable Estatal de Programa')-->
             <!-- Menu de jurisdicciones-->
             <li class="nav-item {{ request()->is('jurisdicciones/*') ? 'active' : '' }}" data-item="jurisdicciones">
                 <a class="nav-item-hold" href="#">
@@ -18,7 +18,17 @@
                     <span class="nav-text">Jurisdicciones y Unidades Médicas</span>
                 </a>
                 <div class="triangle" ></div>
-            </li>            
+            </li>
+            
+            <!-- Menu de registro de usuarios -->
+            <li class="nav-item {{ request()->is('registro/*') ? 'active' : '' }}" data-item="registro">
+                <a class="nav-item-hold" href="#">
+                    <i class="nav-icon i-Bar-Chart"></i>
+                    <span class="nav-text">Registro de usuarios</span>
+                </a>
+                <div class="triangle"></div>
+            </li>
+            <!--@ endrole-->
         </ul>
     </div>
 
@@ -70,6 +80,22 @@
                 </li>
             </li>
         </ul>
+
+        <!-- Submenu de registro de usuarios -->
+        <ul class="childNav" data-parent="registro">
+            <li class="nav-item">
+                <a href="/usuarios/create">
+                    <i class="nav-icon i-Clock-3"></i>
+                    <span class="item-name">Registrar un Usuario</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/usuarios">
+                    <i class="nav-icon i-Clock-4"></i>
+                    <span class="item-name">Ver Usuarios en el sistema</span>
+                </a>
+            </li>
+        </ul> 
 
     </div>
     <div class="sidebar-overlay"></div>

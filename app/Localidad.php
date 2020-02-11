@@ -8,8 +8,8 @@ class Localidad extends Model
 {
     protected $table = 'localidades';
 
-    public function jurisdicciones(){
-        return $this->belongsTo('App\Jurisdiccion', 'jurisdiccion_id');
+    public function municipios(){
+        return $this->belongsTo('App\Municipio');
     }
 
     public function unidadesMedicas(){

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UnidadMedica;
 use App\Localidad;
-use App\Estado;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class UnidadMedicaController extends Controller
@@ -16,7 +16,14 @@ class UnidadMedicaController extends Controller
      */
     public function index()
     {
-        return view('modules.unidades_medicas.index');
+        /*$unidadesMedicas = DB::select('select UM.id, UM.nombre_unidadMedica, L.nombre_localidad 
+        from unidades_medicas as UM inner join localidades as L on UM.localidad_id = L.id');*/
+
+        $unidadesMedicas = DB::table('unidades_medicas')
+        ->join('localidades', 'unidades_medicas.localidad_id', '=', 'localidades.id')
+        ->select('unidades_medicas.*', 'localidades.nombre_localidad')
+        ->get();
+        return view('modules.unidades_medicas.index', compact('unidadesMedicas'));
     }
 
     /**
@@ -26,8 +33,8 @@ class UnidadMedicaController extends Controller
      */
     public function create()
     {
-        $estados = Estado::all();
-        return view('modules.unidades_medicas.create', compact('estados'));
+        $localidades = Localidad::all();
+        return view('modules.unidades_medicas.create', compact('localidades'));
     }
 
     /**
@@ -38,7 +45,13 @@ class UnidadMedicaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $unidadMedica = new UnidadMedica();
+        $unidadMedica->nombre_unidadMedica = $request->input('nombre_unidadMedica');
+        $localidad = $request->input('nombre_localidad');
+        $unidadMedica->localidades()->associate($localidad);
+
+        $unidadMedica->save();
+        return redirect('/unidades-medicas');
     }
 
     /**
