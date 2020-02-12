@@ -3,18 +3,18 @@
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1>Formulario de registro de unidades médicas</h1>
+        <h1>Listado de unidades médicas</h1>
         <ul>
             <li><a href="/unidades-medicas">Unidades Médicas</a></li>
-            <li>Registro unidades medicas</li>
+            <li>Listado de unidades medicas</li>
         </ul>
     </div>
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Registro de unida médicas</h4>
-            <p>Complete toda la información solicitada para registrar una unidad meédica al sistema</p>
+            <h4>Listado de unida médicas</h4>
+            <p>Listado de las unidades médicas que han sido registradas.</p>
         </div>
     </div>
 
@@ -44,11 +44,11 @@
 
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="unidades-medicas" class="display table table-striped table-bordered" style="width:100%">
+                        <table id="unidades_medicas" class="display table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Uniadad Médica</th>
-                                    <th scope="col">Localidad</th>
+                                    <th>Uniadad Médica</th>
+                                    <th>Localidad</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,8 +62,8 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th scope="col">Uniadad Médica</th>
-                                    <th scope="col">Localidad</th>
+                                    <th>Uniadad Médica</th>
+                                    <th>Localidad</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -73,4 +73,36 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('js')
+    <script src="{{asset('assets/js/vendor/datatables.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#unidades_medicas').DataTable({
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "No hay registros",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
+                    "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Mostrar _MENU_ Registros",
+                    "loadingRecords": "Cargando...",
+                    "processing": "Procesando...",
+                    "search": "Buscar:",
+                    "zeroRecords": "No se econtraron coincidencias",
+                    "paginate": {
+                    "first": "Primero",
+                    "last": "Ultimo",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                    } /* Aqui acaba la paginación */
+                } /* Aqui acaba el Languaje */
+            });
+        });
+    </script>
+    
 @endsection

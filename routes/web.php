@@ -25,6 +25,7 @@ Route::resource('/pacientes', 'PacienteController');
 Route::post('/pacientes/{paciente}/addEstudio', 'PacienteController@addEstudio')->name('pacientes.addEstudio');
 Route::post('/pacientes/{paciente}/addFactorRiesgo', 'PacienteController@addFactorRiesgo');
 Route::post('/pacientes/{paciente}/addBirad', 'PacienteController@addBirad');
+Route::post('/pacientes/{paciente}/addDatoClinico', 'PacienteController@addDatoClinico');
 
 /**
  * Rutas de las jurisdicciones 

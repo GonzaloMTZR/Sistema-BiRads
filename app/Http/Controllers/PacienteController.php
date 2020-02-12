@@ -9,6 +9,7 @@ use App\Municipio;
 use App\Jurisdiccion;
 use App\FactorDeRiesgo;
 use App\Birad;
+use App\DatoClinico;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePacientesRequest;
 use Illuminate\Support\Facades\DB;
@@ -138,12 +139,19 @@ class PacienteController extends Controller
         ->where('birads.paciente_id', $paciente->id)
         ->get();
 
+        $datosClinicos = DB::table('datos_clinicos')
+        ->select('datos_clinicos.*', 'pacientes.id')
+        ->join('pacientes', 'pacientes.id', '=', 'datos_clinicos.paciente_id')
+        ->where('datos_clinicos.paciente_id', $paciente->id)
+        ->get();
+
+        //dd($datosClinicos);
         //dd($birads);
         //dd($estudio);
         //dd($paciente);
         //dd($factor);
 
-        return view('modules.pacientes.show', compact('paciente', 'factores', 'estudios', 'birads'));
+        return view('modules.pacientes.show', compact('paciente', 'factores', 'estudios', 'birads', 'datosClinicos'));
     }
 
     /**
@@ -220,5 +228,21 @@ class PacienteController extends Controller
         $birad->save();    
 
         return redirect()->back()->with('success-message', 'Birad agregado con éxito al paciente!');
+    }
+
+    public function addDatoClinico(Request $request, Paciente $paciente){
+        $datoClinico = new DatoClinico();
+
+        $datoClinico->menstruacion = $request->input('menstruacion');
+        $datoClinico->fecha_menstruacion = $request->input('fecha_menstruacion');
+        $datoClinico->signos_clinicos = $request->input('signos_clinicos');
+        $datoClinico->especificacion_signo = $request->input('especificacion_signo');
+        $datoClinico->localizacion = $request->input('localizacion');
+        $datoClinico->fecha_localizacion = $request->input('fecha_localizacion');
+        $datoClinico->pacientes()->associate($paciente);
+
+        $datoClinico->save();    
+
+        return redirect()->back()->with('success-message', 'Dato clinico agregado con éxito al paciente!');
     }
 }

@@ -19,4 +19,8 @@ class Paciente extends Model
     public function birads(){
         return $this->hasMany('App\Birad', 'paciente_id');
     }
+
+    public function datosClinicos(){
+        return $this->hasMany('App\DatoClinico', 'paciente_id');
+    }
 }
