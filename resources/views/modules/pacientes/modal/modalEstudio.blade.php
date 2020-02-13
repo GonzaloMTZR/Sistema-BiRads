@@ -31,7 +31,7 @@
 
                             <div class="col-sm-4" id="fechaDeToma">
                                 <label for="">Fecha de la toma</label>
-                                <input type="date" name="fechaDeToma" id="" class="form-control">
+                                <input type="date" name="fechaDeToma" class="form-control">
                             </div>
                         
                         </div>
@@ -48,18 +48,3 @@
         </div>
     </div>
 </div>
-
-@section('js')
-    <script>
-        $('#otroEstudio').hide();
-
-        $('#tipoEstudio').change(function(e){
-            if($(this).val() == 'Otro'){
-                $('#otroEstudio').show();
-            }else{
-                $('#otroEstudio').hide();
-            }
-        });
-    </script>
-
-@endsection

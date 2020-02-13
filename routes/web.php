@@ -26,6 +26,7 @@ Route::post('/pacientes/{paciente}/addEstudio', 'PacienteController@addEstudio')
 Route::post('/pacientes/{paciente}/addFactorRiesgo', 'PacienteController@addFactorRiesgo');
 Route::post('/pacientes/{paciente}/addBirad', 'PacienteController@addBirad');
 Route::post('/pacientes/{paciente}/addDatoClinico', 'PacienteController@addDatoClinico');
+Route::post('/pacientes/{paciente}/addConsulta', 'PacienteController@addConsulta');
 
 /**
  * Rutas de las jurisdicciones 
@@ -39,6 +40,13 @@ Route::resource('/jurisdicciones', 'JurisdiccionController');
  * Aquí estan las rutas de las funciones que se pueden realizar
  */
 Route::resource('/unidades-medicas', 'UnidadMedicaController');
+
+
+/**
+ * 
+ */
+Route::resource('/estudios', 'EstudioController');
+
 
 /**
  * Rutas de la autenticacion de usuarios y creacion de usuarios

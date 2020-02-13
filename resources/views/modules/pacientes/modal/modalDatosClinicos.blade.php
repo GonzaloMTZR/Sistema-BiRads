@@ -39,7 +39,7 @@
                                     <option value="Crecimiento ganglionar axilar o supraclavicular.">Crecimiento ganglionar axilar o supraclavicular.</option> 
                                     <option value="Retracción o fijación del pezón.">Retracción o fijación del pezón.</option>
                                     <option value="Ninguna">Ninguna</option>
-                                    <option value="Otro">Otro</option>    
+                                    <option value="Otro signo">Otro</option>    
                                 </select>
                             </div>
 
@@ -80,33 +80,3 @@
         </div>
     </div>
 </div>
-
-@section('js')
-<script>
-    $('#especificacion_signo').hide();
-
-    $('#signos_clinicos').change(function(e){
-        if($(this).val() == 'Otro'){
-            $('#especificacion_signo').show();
-
-            /*$('#localizacion').removeClass('col-sm-6');
-            $('#localizacion').addClass('col-sm-3');
-
-            $('#fecha_localizacion').removeClass('col-sm-6');
-            $('#fecha_localizacion').addClass('col-sm-3');*/
-
-        }else{
-            $('#especificacion_signo').hide();
-
-            /*$('#localizacion').removeClass('col-sm-3');
-            $('#localizacion').addClass('col-sm-6');
-
-            $('#familares').removeClass('col-sm-3');
-            $('#familares').addClass('col-sm-6');*/
-
-        }
-
-    });
-</script>
-   
-@endsection

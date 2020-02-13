@@ -23,4 +23,8 @@ class Paciente extends Model
     public function datosClinicos(){
         return $this->hasMany('App\DatoClinico', 'paciente_id');
     }
+
+    public function consultas(){
+        return $this->hasMany('App\Consulta', 'paciente_id');
+    }
 }

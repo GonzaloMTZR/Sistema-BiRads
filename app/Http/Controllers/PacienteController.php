@@ -10,6 +10,7 @@ use App\Jurisdiccion;
 use App\FactorDeRiesgo;
 use App\Birad;
 use App\DatoClinico;
+use App\Consulta;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePacientesRequest;
 use Illuminate\Support\Facades\DB;
@@ -145,13 +146,19 @@ class PacienteController extends Controller
         ->where('datos_clinicos.paciente_id', $paciente->id)
         ->get();
 
+        $consultas = DB::table('consultas')
+        ->select('consultas.*', 'pacientes.curp','pacientes.nombre', 'pacientes.aMaterno', 'pacientes.aPaterno')
+        ->join('pacientes', 'pacientes.id', '=', 'consultas.paciente_id')
+        ->where('consultas.paciente_id', $paciente->id)
+        ->get();
+
         //dd($datosClinicos);
         //dd($birads);
         //dd($estudio);
         //dd($paciente);
         //dd($factor);
 
-        return view('modules.pacientes.show', compact('paciente', 'factores', 'estudios', 'birads', 'datosClinicos'));
+        return view('modules.pacientes.show', compact('paciente', 'factores', 'estudios', 'birads', 'datosClinicos', 'consultas'));
     }
 
     /**
@@ -222,7 +229,8 @@ class PacienteController extends Controller
 
         $birad->BIRADS = $request->input('birads');
         $birad->resultado = $request->input('resultado');
-        $birad->fecha_de_toma = $request->input('fecha_de_toma');    
+        $birad->fecha_de_toma = $request->input('fecha_de_toma');
+          
         $birad->pacientes()->associate($paciente);
 
         $birad->save();    
@@ -244,5 +252,24 @@ class PacienteController extends Controller
         $datoClinico->save();    
 
         return redirect()->back()->with('success-message', 'Dato clinico agregado con éxito al paciente!');
+    }
+
+    public function addConsulta(Request $request, Paciente $paciente){
+        $consulta = new Consulta();
+
+        $consulta->exploracion_clinica = $request->input('exploracion_clinica');
+        $consulta->estudio = $request->input('estudio');
+        $consulta->otro_estudio = $request->input('otro_estudio');
+        $consulta->caso_probable = $request->input('caso_probable');
+        $consulta->seguimiento_caso = $request->input('seguimiento_caso');
+        $consulta->seguimiento_semestral = $request->input('seguimiento_semestral');
+        $consulta->cedula_defuncion = $request->input('cedula_defuncion');
+        $consulta->fecha_consulta = $request->input('fecha_consulta');
+
+        $consulta->pacientes()->associate($paciente);
+
+        $consulta->save();
+        return redirect()->back()->with('success-message', 'Consulta agregada con éxito al paciente!');
+
     }
 }

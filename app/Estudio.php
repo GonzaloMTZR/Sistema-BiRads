@@ -10,4 +10,9 @@ class Estudio extends Model
         return $this->belongsToMany('App\Paciente')
             ->withTimestamps();
     }
+
+    public function resultados(){
+        return $this->belongsToMany('App\ResultadoDelEstudio')
+        ->withTimestamps();
+    }
 }

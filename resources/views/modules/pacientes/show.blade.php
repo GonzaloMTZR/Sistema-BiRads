@@ -152,7 +152,12 @@
                             
                             <tr>
                                 <th scope="row">Afiliación</th>
-                                <td>{{$paciente->afiliacion}}</td>
+                                @if ($paciente->afiliacion != null)
+                                    <td>{{$paciente->afiliacion}}</td>
+                                @else
+                                    <td>{{$paciente->otraAfiliacion}}</td>
+                                @endif
+                                
                             </tr>
                             
                             <tr>
@@ -175,29 +180,102 @@
             <!-- right control icon -->
             <h3 class="card-title">Expediente del paciente</h3>    
             <div class="accordion" id="accordionRightIcon">
-                <div class="card ">
 
-                    <!--
-                    * Datos clinicos
-                    -->
+                <!--
+                * Consultas
+                -->
+                <div class="card ">
                     <div class="card-header header-elements-inline">
                         <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
-                            <a data-toggle="collapse" class="text-default collapsed" href="#accordion-item-icon-right-1"
+                            <a data-toggle="collapse" class="text-default collapsed"
+                                href="#accordion-item-icon-right-1">Consultas</a>
+                        </h6>
+                    </div>
+    
+    
+                    <div id="accordion-item-icon-right-1" class="collapse" data-parent="#accordionRightIcon">
+                        <div class="card-body">
+                                        
+                            <div class="float-right">
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#consultas" >Agregar consulta</button> 
+                                @include('modules/pacientes/modal/modalConsultas')
+                            </div>
+
+                            <div class="card-block">
+                                <div class="table-responsive">
+                                    <table class="table table-striped dt-responsive nowrap" style="width:100%">
+                                        <thead>
+                                            <tr style="text-align:center;">
+                                                <th>Clave de la paciente</th>
+                                                <th>Nombre de la paciente</th>
+                                                <th>Fecha de consulta</th>
+                                                <th>Exploracion</th>
+                                                <th>Estudio</th>
+                                                <th>Caso probable</th>
+                                                <th>Seguimiento</th>
+                                                <th>Seguimiento semestral</th>
+                                                <th>Cédula de defunción</th>
+                                            </tr>
+                                        </thead>
+                
+                                        <tbody>
+                                            @foreach ($consultas as $consulta)    
+                                                <tr style="text-align:center;">                                        
+                                                    <td>{{$consulta->curp}}</td>
+                                                    <td>{{$consulta->nombre}} {{$consulta->aPaterno}} {{$consulta->aMaterno}}</td>
+                                                    <td>{{\Carbon\Carbon::parse($consulta->fecha_consulta)->format('d/m/Y')}}</td>
+                                                    <td>{{$consulta->exploracion_clinica}}</td>   
+                                                    @if ($consulta->estudio != null)
+                                                        <td>{{$consulta->estudio}}</td>
+                                                    @else
+                                                        <td>{{$consulta->otro_estudio}}</td>
+                                                    @endif
+
+                                                    <td>{{$consulta->caso_probable}}</td>
+
+                                                    @if ($consulta->seguimiento_caso != null)
+                                                        <td>{{$consulta->seguimiento_caso}}</td>
+                                                    @else
+                                                        <td>- - - -</td>
+                                                    @endif
+                                                    
+                                                    <td>{{$consulta->seguimiento_semestral}}</td>
+                                                    <td>{{$consulta->cedula_defuncion}}</td>
+                                                </tr>
+                                            @endforeach  
+                                        </tbody>
+                                    </table>
+                
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--
+                * Datos clinicos
+                -->
+                <div class="card ">
+
+                    <div class="card-header header-elements-inline">
+                        <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
+                            <a data-toggle="collapse" class="text-default collapsed" href="#accordion-item-icon-right-2"
                                 aria-expanded="false">Datos Clínicos</a>
                         </h6>
                     </div>
     
     
-                    <div id="accordion-item-icon-right-1" class="collapse" data-parent="#accordionRightIcon" style="">
+                    <div id="accordion-item-icon-right-2" class="collapse" data-parent="#accordionRightIcon" style="">
                         <div class="card-body">
                             <div class="float-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#datosClinicos" >Agregar dato clínico</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#datosClinicos" >Agregar dato clínico</button> 
                                 @include('modules/pacientes/modal/modalDatosClinicos')
                             </div>
                             
                             <div class="card-block">
                                 <div class="table-responsive">
-                                    <table id="datosClinicos" class="table table-striped dt-responsive nowrap" style="width:100%">
+                                    <table class="table table-striped dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr style="text-align:center;">
                                                 <th>Menstruación</th>
@@ -238,23 +316,23 @@
                 <div class="card">
                     <div class="card-header header-elements-inline">
                         <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
-                            <a data-toggle="collapse" class="text-default collapsed"
-                                href="#accordion-item-icon-right-2">Factores de Riesgo</a>
+                            <a data-toggle="collapse" class="text-default collapsed" href="#accordion-item-icon-right-3"
+                            aria-expanded="false">Factores de Riesgo</a>
                         </h6>
                     </div>
     
     
     
-                    <div id="accordion-item-icon-right-2" class="collapse " data-parent="#accordionRightIcon">
+                    <div id="accordion-item-icon-right-3" class="collapse" data-parent="#accordionRightIcon">
                         <div class="card-body">
             
                             <div class="float-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#factorDeRiesgo" >Agregar factor de riesgo</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#factorDeRiesgo" >Agregar factor de riesgo</button> 
                                 @include('modules/pacientes/modal/modalFactoresRiesgo')
                             </div>
                             <div class="card-block">
                                 <div class="table-responsive">
-                                    <table id="factores" class="table table-striped dt-responsive nowrap" style="width:100%">
+                                    <table class="table table-striped dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr style="text-align:center;">
                                                 <th>Edad de presencia de la menarca (Años)</th>
@@ -299,34 +377,34 @@
                 <!--
                 * Historial de estudios
                 -->
-                <div class="card ">
+                <div class="card">
                     <div class="card-header header-elements-inline">
                         <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
-                            <a data-toggle="collapse" class="text-default collapsed"
-                                href="#accordion-item-icon-right-3">Historial de Estudios</a>
+                            <a data-toggle="collapse" class="text-default collapsed" href="#accordion-item-icon-right-4"
+                            aria-expanded="false">Historial de Estudios</a>
                         </h6>
     
                     </div>
     
     
     
-                    <div id="accordion-item-icon-right-3" class="collapse " data-parent="#accordionRightIcon">
+                    <div id="accordion-item-icon-right-4" class="collapse" data-parent="#accordionRightIcon">
                         <div class="card-body"> 
                             <div class="float-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#estudio" >Agregar un estudio</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#estudio" >Agregar un estudio</button> 
                                 @include('modules/pacientes/modal/modalEstudio')
                             </div>
 
                             <div class="card-block">
                                 <div class="table-responsive">
-                                    <table id="resultados" class="table table-striped dt-responsive nowrap" style="width:100%">
+                                    <table class="table table-striped dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr style="text-align:center;">
                                                 <th >Identificador (CURP)</th>
                                                 <th >Tipo De Estudio</th>
                                                 <th >Nombre de la paciente</th>
                                                 <th >Fecha de la toma</th>
-                                                <th >Ver detalles del estudio</th>
+                                              
                                             </tr>
                                         </thead>
                 
@@ -343,11 +421,7 @@
                                                     
                                                     <td>{{$paciente->nombre}} {{$paciente->aPaterno}} {{$paciente->aMaterno}}</td>
                                                     <td>{{Carbon\Carbon::parse($estudio->fechaDeToma)->format('d/m/Y')}}</td></td>
-                                                    <td >
-                                                        <a href="/pacientes/{{$paciente->id}}" class="text-success mr-2">
-                                                            <i class="nav-icon i-Eye font-weight-bold"></i>
-                                                        </a>
-                                                    </td>   
+                                                    
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -365,23 +439,23 @@
                     <div class="card-header header-elements-inline">
                         <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
                             <a data-toggle="collapse" class="text-default collapsed"
-                                href="#accordion-item-icon-right-4">BIRADS</a>
+                                href="#accordion-item-icon-right-5">BIRADS</a>
                         </h6>
     
                     </div>
     
     
-                    <div id="accordion-item-icon-right-4" class="collapse " data-parent="#accordionRightIcon">
+                    <div id="accordion-item-icon-right-5" class="collapse" data-parent="#accordionRightIcon">
                         <div class="card-body">
                                         
                             <div class="float-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#birads" >Agregar BIRAD</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#birads" >Agregar BIRAD</button> 
                                 @include('modules/pacientes/modal/modalBirads')
                             </div>
 
                             <div class="card-block">
                                 <div class="table-responsive">
-                                    <table id="birads" class="table table-striped dt-responsive nowrap" style="width:100%">
+                                    <table class="table table-striped dt-responsive nowrap" style="width:100%">
                                         <thead>
                                             <tr style="text-align:center;">
                                                 <th>Clave de la paciente</th>
@@ -415,6 +489,7 @@
                     </div>
                 </div>
 
+
             </div>
             <!-- /right control icon -->
         </div>
@@ -422,3 +497,124 @@
     
 @endsection
 
+@section('js')
+<script>
+    /**
+     * Script de consultas 
+     */
+    $('#seguimiento_caso').hide();
+    $('#otro_estudio').hide();
+
+    $('#slt_caso_probable').change(function(e){
+        if($(this).val() == 'Si'){
+            $('#seguimiento_caso').show();
+
+        }else{
+            $('#seguimiento_caso').hide();
+
+        }
+    });
+
+    $('#estudio').change(function(e){
+        if($(this).val() == 'Otro estudio'){
+            $('#otro_estudio').show();
+
+            $('#exploracion_clinica').removeClass('col-sm-4');
+            $('#exploracion_clinica').addClass('col-sm-3');
+
+            $('#caso_probable').removeClass('col-sm-4');
+            $('#caso_probable').addClass('col-sm-3');
+        }else{
+            $('#otro_estudio').hide();
+
+            $('#exploracion_clinica').removeClass('col-sm-3');
+            $('#exploracion_clinica').addClass('col-sm-4');
+
+            $('#caso_probable').removeClass('col-sm-3');
+            $('#caso_probable').addClass('col-sm-4');
+        }
+    });
+
+    /**
+     * Script de datos clinicos
+     */
+    $('#especificacion_signo').hide();
+    $('#signos_clinicos').change(function(e){
+        if($(this).val() == 'Otro signo'){
+            $('#especificacion_signo').show();
+        }else{
+            $('#especificacion_signo').hide();
+        }
+
+    });
+
+    /**
+     * Script de factores de riesgo
+     */
+    $('#otroFamiliar').hide();
+    $('#edadMenopausia').hide();
+
+
+    $('#familiares').change(function(e){
+        if($(this).val() == 'Otro familiar'){
+            $('#otroFamiliar').show();
+
+            $('#menarca').removeClass('col-sm-4');
+            $('#menarca').addClass('col-sm-3');
+
+            $('#familares').removeClass('col-sm-4');
+            $('#familares').addClass('col-sm-3');
+
+            $('#otroFamiliar').removeClass('col-sm-3');
+            $('#otroFamiliar').addClass('col-sm-3');
+
+            $('#manopausia').removeClass('col-sm-4');
+            $('#manopausia').addClass('col-sm-3');
+
+        }else{
+            $('#otroFamiliar').hide();
+
+            $('#menarca').removeClass('col-sm-3');
+            $('#menarca').addClass('col-sm-4');
+
+            $('#familares').removeClass('col-sm-3');
+            $('#familares').addClass('col-sm-4');
+
+            $('#otroFamiliar').removeClass('col-sm-3');
+            $('#otroFamiliar').addClass('col-sm-3');
+
+            $('#manopausia').removeClass('col-sm-4');
+            $('#manopausia').addClass('col-sm-4');
+        }
+
+    });
+
+    $('#menopausia').change(function(e){
+        if($(this).val() == 'Si'){
+            $('#edadMenopausia').show();
+
+            $('#edadMenopausia').addClass('col-sm-3');
+            $('#otrosFactores').removeClass('col-sm-12');
+            $('#otrosFactores').addClass('col-sm-9');
+        }else{
+            $('#edadMenopausia').hide();
+            $('#otrosFactores').addClass('col-sm-12');
+
+        }
+    });
+
+    /**
+    * Script de estudios
+    */
+    $('#otroEstudio').hide();
+
+    $('#tipoEstudio').change(function(e){
+        if($(this).val() == 'Otro'){
+            $('#otroEstudio').show();
+        }else{
+            $('#otroEstudio').hide();
+        }
+    });
+</script>
+   
+@endsection
