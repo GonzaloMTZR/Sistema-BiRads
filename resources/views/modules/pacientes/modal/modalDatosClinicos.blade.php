@@ -1,4 +1,4 @@
-<div class="modal fade" id="datosClinicos" tabindex="-1" role="dialog">
+<div class="modal fade" id="modalDatosClinicos" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">

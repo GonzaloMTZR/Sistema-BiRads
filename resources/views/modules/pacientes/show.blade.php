@@ -197,7 +197,7 @@
                         <div class="card-body">
                                         
                             <div class="float-right">
-                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#consultas" >Agregar consulta</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalConsultas" >Agregar consulta</button> 
                                 @include('modules/pacientes/modal/modalConsultas')
                             </div>
 
@@ -269,7 +269,7 @@
                     <div id="accordion-item-icon-right-2" class="collapse" data-parent="#accordionRightIcon" style="">
                         <div class="card-body">
                             <div class="float-right">
-                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#datosClinicos" >Agregar dato clínico</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalDatosClinicos" >Agregar dato clínico</button> 
                                 @include('modules/pacientes/modal/modalDatosClinicos')
                             </div>
                             
@@ -327,7 +327,7 @@
                         <div class="card-body">
             
                             <div class="float-right">
-                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#factorDeRiesgo" >Agregar factor de riesgo</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalFactorDeRiesgo">Agregar factor de riesgo</button> 
                                 @include('modules/pacientes/modal/modalFactoresRiesgo')
                             </div>
                             <div class="card-block">
@@ -391,7 +391,7 @@
                     <div id="accordion-item-icon-right-4" class="collapse" data-parent="#accordionRightIcon">
                         <div class="card-body"> 
                             <div class="float-right">
-                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#estudio" >Agregar un estudio</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalEstudios" >Agregar un estudio</button> 
                                 @include('modules/pacientes/modal/modalEstudio')
                             </div>
 
@@ -439,17 +439,17 @@
                     <div class="card-header header-elements-inline">
                         <h6 class="card-title ul-collapse__icon--size ul-collapse__right-icon mb-0">
                             <a data-toggle="collapse" class="text-default collapsed"
-                                href="#accordion-item-icon-right-5">BIRADS</a>
+                                href="#accordion-item-icon-right-6">BIRADS</a>
                         </h6>
     
                     </div>
     
     
-                    <div id="accordion-item-icon-right-5" class="collapse" data-parent="#accordionRightIcon">
+                    <div id="accordion-item-icon-right-6" class="collapse" data-parent="#accordionRightIcon">
                         <div class="card-body">
                                         
                             <div class="float-right">
-                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#birads" >Agregar BIRAD</button> 
+                                <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#modalBirads" >Agregar BIRAD</button> 
                                 @include('modules/pacientes/modal/modalBirads')
                             </div>
 
