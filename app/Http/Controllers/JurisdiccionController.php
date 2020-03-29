@@ -65,13 +65,6 @@ class JurisdiccionController extends Controller
         $localidad->jurisdicciones()->associate($jurisdiccion->id);
         $localidad->save();
 
-        /**
-         * Guarda la relación entre el municipio y la unidad medica
-         */
-        $unidadMedica->nombre_unidadMedica = $request->input('unidad_medica');
-        $unidadMedica->localidades()->associate($localidad);
-        $unidadMedica->save();
-
         return redirect('/jurisdicciones')->with('success-message', 'La jurisdicción se guardó con éxito!');
     }
 

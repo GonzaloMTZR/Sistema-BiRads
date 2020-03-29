@@ -10,25 +10,26 @@
                 </a>
                 <div class="triangle"></div>
             </li>
-            <!--@ role('Responsable Estatal de Programa')-->
-            <!-- Menu de jurisdicciones-->
-            <li class="nav-item {{ request()->is('jurisdicciones/*') ? 'active' : '' }}" data-item="jurisdicciones">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="nav-text">Jurisdicciones y Unidades Médicas</span>
-                </a>
-                <div class="triangle" ></div>
-            </li>
             
-            <!-- Menu de registro de usuarios -->
-            <li class="nav-item {{ request()->is('registro/*') ? 'active' : '' }}" data-item="registro">
-                <a class="nav-item-hold" href="#">
-                    <i class="nav-icon i-Bar-Chart"></i>
-                    <span class="nav-text">Registro de usuarios</span>
-                </a>
-                <div class="triangle"></div>
-            </li>
-            <!--@ endrole-->
+            @role('Responsable Estatal de Programa')
+            <!-- Menu de jurisdicciones-->
+                <li class="nav-item {{ request()->is('jurisdicciones/*') ? 'active' : '' }}" data-item="jurisdicciones">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Bar-Chart"></i>
+                        <span class="nav-text">Jurisdicciones y Unidades Médicas</span>
+                    </a>
+                    <div class="triangle" ></div>
+                </li>
+                
+                <!-- Menu de registro de usuarios -->
+                <li class="nav-item {{ request()->is('registro/*') ? 'active' : '' }}" data-item="registro">
+                    <a class="nav-item-hold" href="#">
+                        <i class="nav-icon i-Bar-Chart"></i>
+                        <span class="nav-text">Registro de usuarios</span>
+                    </a>
+                    <div class="triangle"></div>
+                </li>
+            @endrole
         </ul>
     </div>
 
@@ -50,36 +51,40 @@
             </li>
         </ul>    
         
-        <!-- Submenu jurisdicciones -->
-        <ul class="childNav" data-parent="jurisdicciones">
-            <li class="nav-item">
-                <a href="/jurisdicciones/create">
-                        <i class="nav-icon i-Clock-3"></i>
-                        <span class="item-name">Agregar jurisdicción</span>
-                    </a>
-                </li>
+        @role('Responsable Estatal de Programa')
+            <!-- Submenu jurisdicciones -->
+            <ul class="childNav" data-parent="jurisdicciones">
                 <li class="nav-item">
-                    <a href="/jurisdicciones">
-                        <i class="nav-icon i-Clock-4"></i>
-                        <span class="item-name">Ver Listado de jurisdicciones</span>
-                    </a>
-                </li>
+                    <a href="/jurisdicciones/create">
+                            <i class="nav-icon i-Clock-3"></i>
+                            <span class="item-name">Agregar jurisdicción</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/jurisdicciones">
+                            <i class="nav-icon i-Clock-4"></i>
+                            <span class="item-name">Ver Listado de jurisdicciones</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/unidades-medicas/create">
-                        <i class="nav-icon i-Clock-4"></i>
-                        <span class="item-name">Agregar una unidad médica</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="/unidades-medicas/create">
+                            <i class="nav-icon i-Clock-4"></i>
+                            <span class="item-name">Agregar una unidad médica</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a href="/unidades-medicas">
-                        <i class="nav-icon i-Clock-4"></i>
-                        <span class="item-name">Ver Listado de unidades médicas</span>
-                    </a>
+                    <li class="nav-item">
+                        <a href="/unidades-medicas">
+                            <i class="nav-icon i-Clock-4"></i>
+                            <span class="item-name">Ver Listado de unidades médicas</span>
+                        </a>
+                    </li>
                 </li>
-            </li>
-        </ul>
+            </ul>
+        @else
+        @endrole
+        
 
         <!-- Submenu de registro de usuarios -->
         <ul class="childNav" data-parent="registro">

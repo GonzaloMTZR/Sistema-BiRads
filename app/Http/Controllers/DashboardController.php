@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Paciente;
+use Auth;
 
 
 class DashboardController extends Controller
@@ -23,7 +24,7 @@ class DashboardController extends Controller
     public function index()
     {
         $currentDateTime = Carbon::today();
-        $countPacientes = DB::table('pacientes')->count();
+        $countPacientes = DB::table('pacientes')->where('user_id', Auth::user()->id)->count();
         return view('starter', compact('countPacientes'));
     }
 

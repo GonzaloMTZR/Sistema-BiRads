@@ -290,7 +290,12 @@
                                             @foreach ($datosClinicos as $datoClinico)    
                                                 <tr style="text-align:center;">                                        
                                                     <td>{{$datoClinico->menstruacion}}</td>
-                                                    <td>{{\Carbon\Carbon::parse($datoClinico->fecha_menstruacion)->format('d/m/Y')}}</td>                                          
+                                                    @if($datoClinico->fecha_menstruacion != NULL)
+                                                        <td>{{\Carbon\Carbon::parse($datoClinico->fecha_menstruacion)->format('d/m/Y')}}</td>  
+                                                    @else
+                                                        <td>- - - -</td>
+                                                    @endif
+                                                                                            
                                                     @if($datoClinico->signos_clinicos != 'Otro')
                                                         <td>{{$datoClinico->signos_clinicos}}</td>
                                                         
@@ -460,6 +465,7 @@
                                             <tr style="text-align:center;">
                                                 <th>Clave de la paciente</th>
                                                 <th>Resultado</th>
+                                                <th>Nivel de BIRAD</th>
                                                 <th>Nombre de la paciente</th>
                                                 <th>Domicilio / Localidad</th>
                                                 <th>Repetir estudio</th>
@@ -470,7 +476,8 @@
                                             @foreach ($birads as $birad)    
                                                 <tr style="text-align:center;">                                        
                                                     <td>{{$birad->curp}}</td>
-                                                    <td>{{$birad->resultado}}</td>                                          
+                                                    <td>{{$birad->resultado}}</td> 
+                                                    <td>{{$birad->BIRADS}}</td>                                         
                                                     <td>{{$birad->nombre}} {{$birad->aPaterno}} {{$birad->aMaterno}}</td>
                                                     <td>{{$birad->calle}}</td>
                                                     @if($birad->resultado == 'Repetir Estudio')
@@ -499,122 +506,148 @@
 
 @section('js')
 <script>
-    /**
-     * Script de consultas 
-     */
-    $('#seguimiento_caso').hide();
-    $('#otro_estudio').hide();
+    $(document).ready(function(){
 
-    $('#slt_caso_probable').change(function(e){
-        if($(this).val() == 'Si'){
-            $('#seguimiento_caso').show();
-
-        }else{
+        /**
+        * Script de consultas 
+        */
+        $('#modalConsultas').on('shown.bs.modal', function(){
+            console.log('modal consultas');
             $('#seguimiento_caso').hide();
-
-        }
-    });
-
-    $('#estudio').change(function(e){
-        if($(this).val() == 'Otro estudio'){
-            $('#otro_estudio').show();
-
-            $('#exploracion_clinica').removeClass('col-sm-4');
-            $('#exploracion_clinica').addClass('col-sm-3');
-
-            $('#caso_probable').removeClass('col-sm-4');
-            $('#caso_probable').addClass('col-sm-3');
-        }else{
             $('#otro_estudio').hide();
 
-            $('#exploracion_clinica').removeClass('col-sm-3');
-            $('#exploracion_clinica').addClass('col-sm-4');
+            $('#slt_caso_probable').change(function(e){
+                if($(this).val() == 'Si'){
+                    $('#seguimiento_caso').show();
 
-            $('#caso_probable').removeClass('col-sm-3');
-            $('#caso_probable').addClass('col-sm-4');
-        }
-    });
+                }else{
+                    $('#seguimiento_caso').hide();
 
-    /**
-     * Script de datos clinicos
-     */
-    $('#especificacion_signo').hide();
-    $('#signos_clinicos').change(function(e){
-        if($(this).val() == 'Otro signo'){
-            $('#especificacion_signo').show();
-        }else{
+                }
+            });
+
+            $('#estudio').change(function(e){
+                if($(this).val() == 'Otro estudio'){
+                    $('#otro_estudio').show();
+
+                    $('#exploracion_clinica').removeClass('col-sm-4');
+                    $('#exploracion_clinica').addClass('col-sm-3');
+
+                    $('#caso_probable').removeClass('col-sm-4');
+                    $('#caso_probable').addClass('col-sm-3');
+                }else{
+                    $('#otro_estudio').hide();
+
+                    $('#exploracion_clinica').removeClass('col-sm-3');
+                    $('#exploracion_clinica').addClass('col-sm-4');
+
+                    $('#caso_probable').removeClass('col-sm-3');
+                    $('#caso_probable').addClass('col-sm-4');
+                }
+            });
+        });
+        
+
+        /**
+        * Script de datos clinicos
+        */
+        $('#modalDatosClinicos').on('shown.bs.modal', function (e) {
+            console.log('modal datos clinicos');
             $('#especificacion_signo').hide();
-        }
+            $('#fecha_menstruacion').hide();
 
-    });
+            $('#menstruacion').change(function(){
+                if($(this).val() == 'Si')
+                    $('#fecha_menstruacion').show();
+                else
+                    $('#fecha_menstruacion').hide();
+            });
 
-    /**
-     * Script de factores de riesgo
-     */
-    $('#otroFamiliar').hide();
-    $('#edadMenopausia').hide();
+            $('#signos_clinicos').change(function(e){
+                if($(this).val() == 'Otro signo'){
+                    $('#especificacion_signo').show();
+                }else{
+                    $('#especificacion_signo').hide();
+                }
+            });
+        });
+       
 
-
-    $('#familiares').change(function(e){
-        if($(this).val() == 'Otro familiar'){
-            $('#otroFamiliar').show();
-
-            $('#menarca').removeClass('col-sm-4');
-            $('#menarca').addClass('col-sm-3');
-
-            $('#familares').removeClass('col-sm-4');
-            $('#familares').addClass('col-sm-3');
-
-            $('#otroFamiliar').removeClass('col-sm-3');
-            $('#otroFamiliar').addClass('col-sm-3');
-
-            $('#manopausia').removeClass('col-sm-4');
-            $('#manopausia').addClass('col-sm-3');
-
-        }else{
+        /**
+        * Script de factores de riesgo
+        */
+        $('#modalFactorDeRiesgo').on('shown.bs.modal', function(){
+            console.log('modal factores');
             $('#otroFamiliar').hide();
-
-            $('#menarca').removeClass('col-sm-3');
-            $('#menarca').addClass('col-sm-4');
-
-            $('#familares').removeClass('col-sm-3');
-            $('#familares').addClass('col-sm-4');
-
-            $('#otroFamiliar').removeClass('col-sm-3');
-            $('#otroFamiliar').addClass('col-sm-3');
-
-            $('#manopausia').removeClass('col-sm-4');
-            $('#manopausia').addClass('col-sm-4');
-        }
-
-    });
-
-    $('#menopausia').change(function(e){
-        if($(this).val() == 'Si'){
-            $('#edadMenopausia').show();
-
-            $('#edadMenopausia').addClass('col-sm-3');
-            $('#otrosFactores').removeClass('col-sm-12');
-            $('#otrosFactores').addClass('col-sm-9');
-        }else{
             $('#edadMenopausia').hide();
-            $('#otrosFactores').addClass('col-sm-12');
 
-        }
-    });
+            $('#familiares').change(function(e){
+                if($(this).val() == 'Otro familiar'){
+                    $('#otroFamiliar').show();
 
-    /**
-    * Script de estudios
-    */
-    $('#otroEstudio').hide();
+                    $('#menarca').removeClass('col-sm-4');
+                    $('#menarca').addClass('col-sm-3');
 
-    $('#tipoEstudio').change(function(e){
-        if($(this).val() == 'Otro'){
-            $('#otroEstudio').show();
-        }else{
+                    $('#familares').removeClass('col-sm-4');
+                    $('#familares').addClass('col-sm-3');
+
+                    $('#otroFamiliar').removeClass('col-sm-3');
+                    $('#otroFamiliar').addClass('col-sm-3');
+
+                    $('#manopausia').removeClass('col-sm-4');
+                    $('#manopausia').addClass('col-sm-3');
+
+                }else{
+                    $('#otroFamiliar').hide();
+
+                    $('#menarca').removeClass('col-sm-3');
+                    $('#menarca').addClass('col-sm-4');
+
+                    $('#familares').removeClass('col-sm-3');
+                    $('#familares').addClass('col-sm-4');
+
+                    $('#otroFamiliar').removeClass('col-sm-3');
+                    $('#otroFamiliar').addClass('col-sm-3');
+
+                    $('#manopausia').removeClass('col-sm-4');
+                    $('#manopausia').addClass('col-sm-4');
+                }
+
+            });
+
+            $('#menopausia').change(function(e){
+                if($(this).val() == 'Si'){
+                    $('#edadMenopausia').show();
+
+                    $('#edadMenopausia').addClass('col-sm-3');
+                    $('#otrosFactores').removeClass('col-sm-12');
+                    $('#otrosFactores').addClass('col-sm-9');
+                }else{
+                    $('#edadMenopausia').hide();
+                    $('#otrosFactores').addClass('col-sm-12');
+
+                }
+            });
+
+        });
+        
+        /**
+        * Script de estudios
+        */
+        $('#modalEstudios').on('shown.bs.modal', function(){
+            console.log('modal estudios');
             $('#otroEstudio').hide();
-        }
+            $('#tipoEstudio').change(function(e){
+                if($(this).val() == 'Otro'){
+                    $('#otroEstudio').show();
+                }else{
+                    $('#otroEstudio').hide();
+                }
+            });
+        });
+       
     });
+    
 </script>
    
 @endsection

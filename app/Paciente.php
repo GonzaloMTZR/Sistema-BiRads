@@ -27,4 +27,8 @@ class Paciente extends Model
     public function consultas(){
         return $this->hasMany('App\Consulta', 'paciente_id');
     }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'user_id');
+    }
 }

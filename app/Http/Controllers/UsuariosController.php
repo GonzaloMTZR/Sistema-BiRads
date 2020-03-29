@@ -7,6 +7,7 @@ use App\Jurisdiccion;
 use App\Estado;
 use App\Institucion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -22,7 +23,8 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = User::all();
+        return view('modules.usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -60,7 +62,7 @@ class UsuariosController extends Controller
         ]);
 
         $user->assignRole(request('role'));
-        return $user;
+        return redirect('/usuarios');
     }
 
     /**
@@ -105,6 +107,7 @@ class UsuariosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $usuario = User::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

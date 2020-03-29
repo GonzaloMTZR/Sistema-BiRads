@@ -16,14 +16,14 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="my-input">Menstruación</label>
-                                <select name="menstruacion" class="form-control">
+                                <select name="menstruacion" id="menstruacion" class="form-control">
                                     <option selected disabled>Seleccione una opción</option>
                                     <option value="Si">Si</option>     
                                     <option value="No">No</option>        
                                 </select>
                             </div>
 
-                            <div class="col-sm-4" >
+                            <div class="col-sm-4" id="fecha_menstruacion">
                                 <label >Fecha de la ultima menstruación</label>
                                 <input type="date" name="fecha_menstruacion" class="form-control">
                             </div>

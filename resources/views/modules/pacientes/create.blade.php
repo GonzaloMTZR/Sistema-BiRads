@@ -322,7 +322,7 @@
     
                         
                         <div class="form-group">
-                            <button type="submit" class="col-sm-12 btn" style="background-color:pink;">Agregar</button>
+                            <button type="submit" class="col-sm-12 btn" style="background-color:pink;">Guardar</button>
                         </div>
             
                     </form>

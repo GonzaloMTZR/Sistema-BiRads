@@ -28,7 +28,6 @@ class StoreJurisdiccionRequest extends FormRequest
             'nombre_jurisdiccion' => 'required',
             'municipio' => 'required',
             'codigo_localidad' => 'required',
-            'unidad_medica' => 'required',
             
         ];
     }
@@ -40,7 +39,6 @@ class StoreJurisdiccionRequest extends FormRequest
             'nombre_jurisdiccion.required' => 'El nombre de la jurisdicción es obligatorio',
             'municipio.required' => 'El municipio es obligatoria',
             'codigo_localidad.required' => 'El codigo de localidad es obligatorio',
-            'unidad_medica.required' => 'El nombre de la unidad médica es obligatorio',
         ];
     }
 }

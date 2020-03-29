@@ -87,8 +87,9 @@
         <!-- User avatar dropdown -->
         <div class="dropdown">
             <div  class="user col align-self-end">
-                <img src="{{asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
+                <!--<img src="{ {asset('assets/images/faces/1.jpg')}}" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Greys-Anatomy-Season-7-Promo-9.jpg/220px-Greys-Anatomy-Season-7-Promo-9.jpg" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                     <div class="dropdown-header">
                         @auth

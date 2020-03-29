@@ -67,11 +67,6 @@
                                 <label for="my-input">Codigo de localidad</label>
                                 <input type="text" name="codigo_localidad" class="form-control"> 
                             </div>  
-                            
-                            <div class="col-sm-6">
-                                <label name="entidad" for="my-input">Unidad Médica</label>
-                                <input type="text" name="unidad_medica" class="form-control"> 
-                            </div> 
                         </div>
   
                         <div class="form-group">

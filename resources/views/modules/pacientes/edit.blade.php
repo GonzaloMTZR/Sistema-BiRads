@@ -3,20 +3,33 @@
 
 @section('main-content')
     <div class="breadcrumb">
-        <h1>Formulario de actualizción de datos del paciente</h1>
+        <h1>Formulario para actualización de paciente</h1>
         <ul>
             <li><a href="/pacientes">Pacientes</a></li>
-            <li>Actualizción de datos del paciente { {$paciente->nomrbe}}</li>
+            <li>Editar de pacientes</li>
         </ul>
     </div>
     <div class="separator-breadcrumb border-top"></div>
 
     <div class="row mb-4">
         <div class="col-md-12">
-            <h4>Actualizacion de paciente</h4>
-            <p>Modifique la información que crea conveniente.</p>
+            <h4>Actualización de datos del pacientes</h4>
+            <p>Complete toda la información solicitada para actualizar a un paciente al sistema</p>
         </div>
     </div>
+
+    @if($errors)
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger background-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                <p>{{$error}}</p>
+            </div>
+        @endforeach
+    @endif
+
+    
 
     <div class="row mb-4">
         <div class="col-md-12 mb-4">
@@ -30,17 +43,17 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="my-input">Nombre</label>
-                                <input name="nombre" id="my-input" class="form-control" type="text">
+                                <input name="nombre" id="my-input" class="form-control" type="text"  value="{{$paciente->nombre}}">
                             </div>
         
                             <div class="col-sm-4">
                                 <label for="my-input">Apellido Paterno</label>
-                                    <input name="aPaterno" id="my-input" class="form-control" type="text">
+                                    <input name="aPaterno" id="my-input" class="form-control" type="text" value="{{$paciente->aPaterno}}">
                             </div>
         
                             <div class="col-sm-4">
                                 <label for="my-input">Apellido Materno</label>
-                                    <input name="aMaterno" id="my-input" class="form-control" type="text">
+                                    <input name="aMaterno" id="my-input" class="form-control" type="text" value="{{$paciente->aMaterno}}">
                             </div>
                         </div>
         
@@ -48,9 +61,10 @@
                             <div class="col-sm-4">
                                 <label name="entidad" for="my-input">Entidad de nacimiento</label>
                                 <select class="form-control" name="entidad" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    
-                                    
+                                    <option value="" selected="true" disabled>{{$estadosNombres->nombre_estado}}</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{$estado->nombre_estado}}">{{$estado->nombre_estado}}</option>
+                                    @endforeach
                                 
                                 </select>
                                 
@@ -58,150 +72,217 @@
                             
                             <div class="col-sm-4">
                                 <label for="my-input">CURP</label>
-                                <input name="curp" id="my-input" class="form-control" type="text">
+                                <input name="curp" id="my-input" class="form-control" type="text" value="{{$paciente->curp}}">
                             </div>
                             
         
                             <div class="col-sm-2">
                                 <label for="my-input">Edad</label>
-                                <input type="text" name="edad" class="form-control">
+                                <input type="text" name="edad" class="form-control" value="{{$paciente->edad}}">
                             </div>
         
                             <div class="col-sm-2">
                                 <label for="my-input">Fecha de nacimiento</label>
-                                <input type="date" name="fechaNacimiento" class="form-control">
+                                <input type="date" name="fechaNacimiento" class="form-control" value="{{$paciente->fechaNacimiento}}">
                             </div>
                         </div>
         
                         <br>
+                        <hr>
                         <h4 class="sub-title">Datos de residencia habitual</h4>
                         <div class="form-group row">
                             <div class="col-sm-3">
                                 <label for="my-input">Calle y Numero</label>
-                                <input type="text" name="calle" class="form-control">
+                                <input type="text" name="calle" class="form-control" value="{{$paciente->calle}}">
                             </div>
         
                             <div class="col-sm-3">
                                 <label for="my-input">Colonia</label>
-                                <input type="text" name="colonia" class="form-control">
+                                <input type="text" name="colonia" class="form-control" value="{{$paciente->colonia}}">
                             </div>
         
                             <div class="col-sm-3">
-                                <label for="my-input">Municipio</label>
-                                <input type="text" name="municipio" class="form-control">
+                                <label for="my-input">Telefono</label>
+                                <input type="text" name="telefono" class="form-control" value="{{$paciente->telefono}}">
                             </div>
         
                             <div class="col-sm-3">
                                 <label for="my-input">Codigo Postal</label>
-                                <input type="text" name="codigoPostal" class="form-control">
+                                <input type="text" name="codigoPostal" class="form-control" value="{{$paciente->codigoPostal}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label for="">Manzana</label>
+                                <input type="text" class="form-control" name="manzana" value="{{$paciente->manzana}}">
+                            </div>
+
+                            <div class="col-sm-3">
+                                <label for="">Lote</label>
+                                <input type="text" class="form-control" name="lote" value="{{$paciente->lote}}">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="">Entre Calles</label>
+                                <textarea name="entreCalles" class="form-control" value="">{{$paciente->entreCalles}}</textarea>
+                            </div>
+
+                            <div class="col-sm-2">
+                                <label for="my-input">Tiempo de Residencia</label>
+                               <input type="text" name="tiempoResidencia" class="form-control" id="" value="{{$paciente->tiempoResidencia}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="">Referencia del Domicilio</label>
+                                <textarea name="referenciaDom" class="form-control" rows="5" value="">{{$paciente->referenciaDom}}</textarea>
                             </div>
                         </div>
         
                         <div class="form-group row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label name="entidadFederativa" for="my-input">Entidad Federeativa</label>
-                                <select class="form-control" name="entidadFederativa" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    
+                                <select class="form-control" name="entidadFederativa" id="entidad" value="{{ old('entidadFederativa') }}">
+                                    <option value="" selected="true" disabled>{{$estadosNombres->nombre_estado}}</option>
+                                    @foreach ($estados as $estado)
+                                        <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                     
         
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <label name="jurisdiccion" for="my-input">Jurisdicción</label>
-                                <select class="form-control" name="jurisdiccion" id="">
-                                    <option selected disabled>Seleccione la entidad</option>
-                                    <option value= "Abasolo">Abasolo</option>
-                                    <option value= "Aldama">Aldama</option>
-                                    <option value= "Altamira">Altamira</option>
-                                    <option value= "Antiguo Morelos">Antiguo Morelos</option>
-                                    <option value= "Burgos">Burgos</option>
-                                    <option value= "Bustamante"> Bustamante</option>
-                                    <option value= "Camargo"> Camargo</option>
-                                    <option value= "Casas">  Casas</option>
-                                    <option value= "Cruillas">Cruillas</option>
-                                    <option value= "Güémez">Güémez</option>
-                                    <option value= "Gómez Farías">Gómez Farías</option>
-                                    <option value= "González">González</option>
-                                    <option value= "Guerrero"> Guerrero</option>
-                                    <option value= "Gustavo Díaz Ordaz">  Gustavo Díaz Ordaz</option>
-                                    <option value= "Hidalgo"> Hidalgo</option>
-                                    <option value= "Jaumave"> Jaumave</option>
-                                    <option value= "Jiménez">Jiménez</option>
-                                    <option value= "Llera">Llera</option>
-                                    <option value= "Madero">Madero</option>
-                                    <option value= "Mainero">Mainero</option>
-                                    <option value= "Mante">Mante</option>
-                                    <option value= "Matamoros"> Matamoros</option>
-                                    <option value= "Méndez"> Méndez</option>
-                                    <option value= "Mier"> Mier</option>
-                                    <option value= "Miguel Alemán"> Miguel Alemán</option>
-                                    <option value= "Miquihuana"> Miquihuana</option>
-                                    <option value= "Nuevo Laredo"> Nuevo Laredo</option>
-                                    <option value= "Nuevo Morelos">Nuevo Morelos</option>
-                                    <option value= "Ocampo">Ocampo</option>
-                                    <option value= "Padilla">Padilla</option>
-                                    <option value= "Palmillas">Palmillas</option>
-                                    <option value= "Reynosa"> Reynosa</option>
-                                    <option value= "Río Bravo">Río Bravo</option>
-                                    <option value= "San Carlos"> San Carlos</option>
-                                    <option value= "San Fernando">San Fernando</option>
-                                    <option value= "San Nicolás">San Nicolás</option>
-                                    <option value= "Soto la Marina"> Soto la Marina</option>
-                                    <option value= "Tampico">  Tampico</option>
-                                    <option value= "Tula"> Tula</option>
-                                    <option value= "Valle Hermoso">Valle Hermoso</option>
-                                    <option value= "Victoria">Victoria</option>
-                                    <option value= "Villagránvalue">Villagrán</option>
-                                    <option value= "Xicoténcatlvalue">Xicoténcatl</option>
+                                <select class="form-control" name="jurisdiccion" id="jurisdiccion">
+                                    <option value="" selected="true" disabled>{{$estadosNombres->nombre_jurisdiccion}}</option>
                                 </select>
-                            </div>
-        
-                            <div class="col-sm-4">
-                                <label for="my-input">Telefono</label>
-                                <input type="text" name="telefono" class="form-control">
-                            </div>
-        
-                        </div>
-        
-                        <br>
-                        <h4 class="sub-title">Otra Residencia</h4>
-                        <div class="form-group row">
-                            <div class="col-sm-3">
-                                <label for="my-input">Calle y Numero</label>
-                                <input type="text" name="calle_alter" class="form-control">
-                            </div>
-        
-                            <div class="col-sm-3">
-                                <label for="my-input">Colonia</label>
-                                <input type="text" name="colonia_alter" class="form-control">
                             </div>
         
                             <div class="col-sm-3">
                                 <label for="my-input">Municipio</label>
-                                <input type="text" name="municipio_alter" class="form-control">
+                                <select name="municipio" id="municipio" class="form-control">
+                                    <option value="" selected="true" disabled>{{$estadosNombres->nombre_municipio}}</option>
+                                    
+                                </select>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <label for="my-input">Localidad</label>
+                                <select name="localidad" id="localidad" class="form-control">
+                                    <option value="" selected="true" disabled>{{$estadosNombres->nombre_localidad}}</option>
+                                  
+                                </select>
                             </div>
         
-                            <div class="col-sm-3">
-                                <label for="my-input">Tiempo de residencia actual</label>
-                                <select name="tiempoResidencia" id="" class="form-control">
-                                    <option selected disabled>Seleccione una opción</option>
-                                    <option value="Opcion 1">Opción 1</option>
-                                </select>
+                        </div>
+                        
+                        
+                        <br>
+                        <hr>
+                        <h4 class="sub-title">Otra Residencia</h4>
+
+                        <div id="otraResidencia">                        
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="my-input">Calle y Numero</label>
+                                    <input type="text" id="calle_alter" name="calle_alter" class="form-control" value="{{$paciente->calle_alter}}">
+                                </div>
+            
+                                <div class="col-sm-3">
+                                    <label for="my-input">Colonia</label>
+                                    <input type="text" name="colonia_alter" class="form-control" value="{{$paciente->colonia_alter}}">
+                                </div>
+            
+                                <div class="col-sm-3">
+                                    <label for="my-input">Telefono</label>
+                                    <input type="text" name="telefono_alter" class="form-control" value="{{$paciente->telefono_alter}}">
+                                </div>
+            
+                                <div class="col-sm-3">
+                                    <label for="my-input">Codigo Postal</label>
+                                    <input type="text" name="codigoPostal_alter" class="form-control" value="{{$paciente->codigoPostal_alter}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label for="">Manzana</label>
+                                    <input type="text" class="form-control" name="manzana_alter" value="{{$paciente->manzana_alter}}">
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="">Lote</label>
+                                    <input type="text" class="form-control" name="lote_alter" value="{{$paciente->lote_alter}}">
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <label for="">Entre Calles</label>
+                                    <textarea name="entreCalles_alter" class="form-control" value="{{$paciente->entreCalles_alter}}"></textarea>
+                                </div>
+
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <label for="">Referencia del Domicilio</label>
+                                    <textarea name="referenciaDom_alter" class="form-control" rows="5" value="{{$paciente->referenciaDom_alter}}"></textarea>
+                                </div>
+                            </div>
+            
+                            <div class="form-group row">
+                                <div class="col-sm-3">
+                                    <label name="entidadFederativa_alter" for="my-input">Entidad Federeativa</label>
+                                    <select class="form-control" name="entidadFederativa_alter" id="entidad_alter">
+                                        
+                                            <option value="" selected="true" disabled>{{$estadosNombres->nombre_estado}}</option>
+                                        
+                                            @foreach ($estados as $estado)
+                                                <option value="{{$estado->id}}">{{$estado->nombre_estado}}</option>
+                                            @endforeach
+                                        
+                                    </select>
+                                </div>
+                        
+            
+                                <div class="col-sm-3">
+                                    <label name="jurisdiccion" for="my-input">Jurisdicción</label>
+                                    <select class="form-control" name="jurisdiccion_alter" id="jurisdiccion_alter">
+                                        <option value="" selected="true" disabled>{{$estadosNombres->nombre_jurisdiccion}}</option>
+                                    </select>
+                                </div>
+            
+                                <div class="col-sm-3">
+                                    <label for="my-input">Municipio</label>
+                                    <select name="municipio_alter" id="municipio_alter" class="form-control">
+                                        <option value="" selected="true" disabled>{{$estadosNombres->nombre_municipio}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label for="my-input">Localidad</label>
+                                    <select name="localidad_alter" id="localidad_alter" class="form-control">
+                                        <option value="" selected="true" disabled>{{$estadosNombres->nombre_localidad}}</option>
+                                    </select>
+                                </div>
+            
                             </div>
                         </div>
         
                         <br>
+                        <hr>
                         <h4 class="sub-title">Datos de contacto</h4>
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="my-input">Correo electrónico</label>
-                                <input type="text" name="correoElectronico" class="form-control">
+                                <input type="text" name="correoElectronico" class="form-control" value="{{$paciente->correoElectronico}}">
                             </div>
         
                             <div class="col-sm-4">
                                 <label for="my-input">Telefono adicional</label>
-                                <input type="text" name="telefono_alter" class="form-control">
+                                <input type="text" name="telefono_alter" class="form-control" value="{{$paciente->telefono_alter}}">
                             </div>
                         </div>
         
@@ -210,27 +291,34 @@
                         <div class="form-group row">
                             <div class="col-sm-4">
                                 <label for="my-input">Tipo de afiliación</label>
-                                <select name="afiliacion" id="" class="form-control">
-                                    <option selected disabled>Seleccione afiliación</option>
-                                    <option value="Opcion 1">Opción 1</option>
+                                <select name="afiliacion" id="afiliacion" class="form-control" >
+                                    <option value="{{$paciente->afiliacion}}" selected disabled>{{$paciente->afiliacion}}</option>
+                                    <option value="Seguro Popular">Seguro Popular</option>
+                                    <option value="IPSSET">IPSSET</option>
+                                    <option value="IMSS">IMSS</option>
+                                    <option value="PEMEX">PEMEX</option>
+                                    <option value="SEDENA">SEDENA</option>
+                                    <option value="SEMAR">SEMAR</option>
+                                    <option value="Medica Privada">Médica Privada</option>
+                                    <option value="Otras">Otras</option>
                                 </select>
                             </div>
         
                             <div class="col-sm-4">
                                 <label for="my-input">Otro</label>
-                                <input type="text" name="" class="form-control">
+                                <input type="text" name="otraAfiliacion" id="otro" class="form-control" value="{{$paciente->otraAfiliacion}}" disabled>
                             </div>
                             
                             <div class="col-sm-4">
                                 <label for="my-input">Numero de afiliación o póliza</label>
-                                <input type="text" name="numeroAfiliacion" class="form-control">
+                                <input type="text" name="numeroAfiliacion"  value="{{$paciente->numeroAfiliacion}}" class="form-control">
                             </div>
                             
                         </div>
     
                         
                         <div class="form-group">
-                            <button type="submit" class="col-sm-12 btn btn-success">Actualizar Paciente</button>
+                            <button type="submit" class="col-sm-12 btn" style="background-color:pink;">Agregar</button>
                         </div>
             
                     </form>
@@ -238,4 +326,22 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="{{asset('js/registro.js')}}"></script>
+    <script>
+
+        $('#afiliacion').change(function (){  
+            if($(this).val() === 'Medica Privada'){
+                $("#otro").prop('disabled', false);
+            }else if($(this).val() === 'Otras'){
+                $("#otro").prop('disabled', false);
+            }else{
+                $("#otro").prop('disabled', true);
+            }
+        });
+        
+        
+    </script>
 @endsection

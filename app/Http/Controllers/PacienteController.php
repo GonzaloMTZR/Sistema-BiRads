@@ -11,6 +11,8 @@ use App\FactorDeRiesgo;
 use App\Birad;
 use App\DatoClinico;
 use App\Consulta;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePacientesRequest;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +30,7 @@ class PacienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //$pacientes = Paciente::orderBy('nombre', 'asc')->get();
+    {   
         $pacientes = DB::table('pacientes')
         ->join('estados', 'pacientes.entidadFederativa', '=', 'estados.id')
         ->join('municipios', 'pacientes.municipio', '=', 'municipios.id')
@@ -96,9 +97,12 @@ class PacienteController extends Controller
         $paciente->afiliacion = $request->input('afiliacion');
         $paciente->otraAfiliacion= $request->input('otraAfiliacion');
         $paciente->numeroAfiliacion = $request->input('numeroAfiliacion');
-
-        //dd($paciente);
+        $user = User::findOrFail(Auth::user()->id);
+        $paciente->user_id = $user->id;
         $paciente->save();
+        //$paciente->user()->associate($user->id);
+        //dd($paciente);
+        
         return redirect('/pacientes')->with('success-message', 'Paciente guardado con éxito!');
         
     }
@@ -169,7 +173,16 @@ class PacienteController extends Controller
      */
     public function edit(Paciente $paciente)
     {
-        return view('modules.pacientes.edit', compact('paciente'));
+        $estados = Estado::all();
+        $estadosNombres = DB::table('pacientes')
+        ->join('estados', 'pacientes.entidadFederativa', '=', 'estados.id')
+        ->join('jurisdicciones', 'pacientes.jurisdiccion', '=', 'jurisdicciones.id')
+        ->join('municipios', 'pacientes.municipio', '=', 'municipios.id')
+        ->join('localidades', 'pacientes.localidad', '=', 'localidades.id')
+        ->select('pacientes.*', 'estados.*', 'jurisdicciones.*',
+        'municipios.*', 'localidades.*')
+        ->where('pacientes.id', $paciente->id)->get()->first();
+        return view('modules.pacientes.edit', compact('paciente', 'estados','estadosNombres'));
     }
 
     /**
@@ -181,7 +194,55 @@ class PacienteController extends Controller
      */
     public function update(Request $request, Paciente $paciente)
     {
-        //
+
+        $paciente->nombre = $request->input('nombre');
+        $paciente->aPaterno = $request->input('aPaterno');
+        $paciente->aMaterno = $request->input('aMaterno');
+        $paciente->entidad = $request->input('entidad');
+        $paciente->curp = $request->input('curp');
+        $paciente->fechaNacimiento = $request->input('fechaNacimiento');
+        $paciente->edad = $request->input('edad');
+        $paciente->calle = $request->input('calle');
+        $paciente->entreCalles = $request->input('entreCalles');
+        $paciente->manzana = $request->input('manzana');
+        $paciente->lote = $request->input('lote');
+        $paciente->referenciaDom = $request->input('referenciaDom');
+        $paciente->colonia = $request->input('colonia');
+        $paciente->codigoPostal = $request->input('codigoPostal');
+        $paciente->entidadFederativa = $request->input('entidadFederativa');
+        $paciente->jurisdiccion = $request->input('jurisdiccion');
+        $paciente->municipio = $request->input('municipio');
+        $paciente->localidad = $request->input('localidad');
+        $paciente->telefono = $request->input('telefono');
+        $paciente->tiempoResidencia = $request->input('tiempoResidencia');
+
+        $paciente->calle_alter = $request->input('calle_alter');
+        $paciente->entreCalles_alter = $request->input('entreCalles_alter');
+        $paciente->manzana_alter = $request->input('manzana_alter');
+        $paciente->lote_alter = $request->input('lote_alter');
+        $paciente->referenciaDom_alter = $request->input('referenciaDom_alter');
+        $paciente->colonia_alter = $request->input('colonia_alter');
+        $paciente->entidad_alter = $request->input('entidad_alter');
+        $paciente->jurisdiccion_alter = $request->input('jurisdiccion_alter');
+        $paciente->municipio_alter = $request->input('municipio_alter');
+        $paciente->localidad_alter = $request->input('localidad_alter');
+        $paciente->telefono_alter = $request->input('telefono_alter');
+        $paciente->correoElectronico = $request->input('correoElectronico');
+        
+        $paciente->afiliacion = $request->input('afiliacion');
+        $paciente->otraAfiliacion= $request->input('otraAfiliacion');
+        $paciente->numeroAfiliacion = $request->input('numeroAfiliacion');
+
+        if($paciente->user_id != null){
+            $paciente->user_id = $paciente->user_id;
+        }else{
+            $user = User::findOrFail(Auth::user()->id);
+            $paciente->user_id = $user->id;
+        }   
+        $paciente->save();
+
+        
+        return redirect('/pacientes')->with('success-message', 'Paciente guardado con éxito!');
     }
 
     /**
