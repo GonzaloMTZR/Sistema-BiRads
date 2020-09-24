@@ -24,12 +24,8 @@
                                 <select name="birads" class="form-control">
                                     <option selected disabled>Seleccione una opción</option>
                                     <option value="0">0</option>     
-                                    <option value="1">1</option>     
-                                    <option value="2">2</option>    
-                                    <option value="3">3</option> 
                                     <option value="4">4</option> 
                                     <option value="5">5</option>    
-                                    <option value="6">6</option>
                                 </select>
                             </div>
 
@@ -37,9 +33,9 @@
                                 <label for="">Resultados</label>
                                 <select name="resultado" class="form-control">
                                     <option selected disabled>Seleccione una opción</option>
-                                    <option value="Positivo">Positivo</option>     
-                                    <option value="Negativo">Negativo</option>  
-                                    <option value="Repetir Estudio">Repetir Estudio</option>     
+                                    <option value="Se necesita evaluación adicional">Se necesita evaluación adicional</option>     
+                                    <option value="Resultado Sospechoso">Resultado Sospechoso</option>  
+                                    <option value="Alto riesgo de cáncer">Alto riesgo de cáncer</option>     
                                 </select>
                             </div>
                         </div>                   

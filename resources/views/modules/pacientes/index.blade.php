@@ -57,21 +57,26 @@
                                             <td>{{$paciente->nombre_municipio}}</td>
                                             <td>{{$paciente->nombre_estado}}</td>
                                             <td>
-                                                <a href="/pacientes/{{$paciente->id}}" class="text-success mr-2">
-                                                    <i class="nav-icon i-Eye font-weight-bold"></i>
-                                                </a>
 
-                                                <a href="/pacientes/{{$paciente->id}}/edit" class="text-warning mr-2">
-                                                    <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                                </a>
-                                                
-                                                <form method="POST" action="/pacientes/{{$paciente->id}}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="text-danger mr-2" style="border:none;">
-                                                        <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                    </button>   
-                                                </form>                                             
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <a href="/pacientes/{{$paciente->id}}" class="btn btn-success ">
+                                                        <i class="nav-icon i-Eye font-weight-bold"></i>
+                                                    </a>
+    
+                                                    <a href="/pacientes/{{$paciente->id}}/edit" class="btn btn-warning">
+                                                        <i class="nav-icon i-Pen-2 font-weight-bold"></i>
+                                                    </a>
+                                                    
+                                                    <form method="POST" action="/pacientes/{{$paciente->id}}">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="btn btn-danger" style="border:none;">
+                                                            <i class="nav-icon i-Close-Window font-weight-bold"></i>
+                                                        </button>   
+                                                    </form>              
+    
+                                                </div>
+                                                                                    
                                             </td>
                                         
                                         </tr>

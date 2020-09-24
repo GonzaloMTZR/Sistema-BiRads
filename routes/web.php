@@ -74,3 +74,4 @@ Route::resource('/usuarios', 'UsuariosController');
 Route::get('/welcome', function(){
     return view('landing');
 });
+

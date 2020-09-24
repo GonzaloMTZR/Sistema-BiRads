@@ -52,17 +52,22 @@
                                         <td>{{$usuario->entidad}}</td>
                                         <td>{{$usuario->municipio}}</td>
                                         <td>
-                                            <a href="/usuarios/{{$usuario->id}}/edit" class="text-warning">
-                                                <i class="nav-icon i-Pen-2 font-weight-bold"></i>
-                                            </a>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="/usuarios/{{$usuario->id}}/edit" class="btn btn-warning">
+                                                    <i class="nav-icon i-Pen-2"></i>
+                                                </a>
+                                                <form method="POST" action="/usuarios/{{$usuario->id}}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="btn btn-danger mr-2" style="border:none;">
+                                                        <i class="nav-icon i-Close-Window "></i>
+                                                    </button>   
+                                                </form>      
+
+                                            </div>
                                             
-                                            <form method="POST" action="/usuarios/{{$usuario->id}}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="text-danger mr-2" style="border:none;">
-                                                    <i class="nav-icon i-Close-Window font-weight-bold"></i>
-                                                </button>   
-                                            </form>                                             
+                                            
+                                                                                   
                                         </td>
                                     
                                     </tr>
@@ -74,9 +79,11 @@
                             <tfoot>
                                 <tr>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Domicilio</th>
-                                    <th scope="col">Municipio</th>
+                                    <th scope="col">Correo Electrónico</th>
+                                    <th scope="col">Sistema</th>
+                                    <th scope="col">Institucion</th>
                                     <th scope="col">Entidad</th>
+                                    <th scope="col">Municipio</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </tfoot>

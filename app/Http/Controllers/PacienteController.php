@@ -13,6 +13,7 @@ use App\DatoClinico;
 use App\Consulta;
 use App\User;
 use Auth;
+use Mail;
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePacientesRequest;
 use Illuminate\Support\Facades\DB;
@@ -291,7 +292,18 @@ class PacienteController extends Controller
         $birad->BIRADS = $request->input('birads');
         $birad->resultado = $request->input('resultado');
         $birad->fecha_de_toma = $request->input('fecha_de_toma');
-          
+
+        if($request->input('birads') >= 4){
+            Mail::send('emails.notificacion', ['paciente' => $paciente, 'birad' => $birad], function ($message) use ($paciente, $birad) {
+                $emails = User::all();
+                $message->from('BIRADSis@BIRAD.com', 'Sistema BIRAD');
+                //$message->to('krizia.7689@gmail.com')->subject('Notificación de paciente con posible diagnostico positivo');
+                foreach($emails as $email){
+                    $message->to($email->email)->subject('Notificación de paciente con posibla diagnostico positivo');
+                }
+            });
+        }
+        
         $birad->pacientes()->associate($paciente);
 
         $birad->save();    
@@ -332,5 +344,11 @@ class PacienteController extends Controller
         $consulta->save();
         return redirect()->back()->with('success-message', 'Consulta agregada con éxito al paciente!');
 
+    }
+
+    public function prueba(){
+        $emails = User::select('email')->get()->toArray();
+        $userEmail = unserialize($emails);
+        dd($userEmail);
     }
 }
